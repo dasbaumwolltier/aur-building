@@ -12,5 +12,6 @@ USER yay
 
 COPY build.fish /build
 COPY package-list /build
+COPY repository* /build
 
 ENTRYPOINT /usr/bin/fish /build/build.fish
