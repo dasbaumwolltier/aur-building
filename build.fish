@@ -1,6 +1,6 @@
 set BUILD_DIR (realpath build)
 set PACKAGE_LIST (realpath package-list)
-set PACMAN_DB_NAME (realpath repository)
+set PACMAN_DB_NAME (realpath dasbaumwolltier)
 set COMPRESSION zst
 set ARCH x86_64
 
