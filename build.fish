@@ -34,10 +34,15 @@ if test ! -f $PACKAGE_LIST
 end
 
 function install_yay
-    git clone https://aur.archlinux.org/yay.git "$BUIL_DIR/yay-used"
+    install_packages go
+
+    git clone https://aur.archlinux.org/yay.git "$BUILD_DIR/yay-used"
     cd "$BUILD_DIR/yay-used"
+
     makepkg
     sudo pacman -U --noconfirm yay-*.pkg.tar.*
+
+    cd ../..
     return $status
 end
 
@@ -79,9 +84,10 @@ set PACKAGES (cat $PACKAGE_LIST)
 # set AUR_PACKAGES (echo $PACKAGES | grep "^aur")
 
 sudo pacman -Syu --noconfirm
+install_packages git base-devel sudo
 # cp "$PACMAN_DB_NAME" "$BUILD_DIR/packages/"
 
-if not yay -V
+if test ! -f /usr/bin/yay
     install_yay
 end
 
@@ -91,7 +97,7 @@ for package in $PACKAGES
     "$splitted[1]_get_depends" $splitted[2]
 
     install_packages $MAKE_DEPENDS
-    # install_packages $DEPENDS
+    install_packages $DEPENDS
 
     cd build
     download_pkgbuild "$splitted[2]"
