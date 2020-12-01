@@ -69,15 +69,15 @@ set MAKE_DEPENDS ()
 set DEPENDS ()
 
 function aur_get_make_depends -a package
-    set MAKE_DEPENDS (string split ' ' (yay -Sai "$package" | grep -i "Make Deps" | cut -d':' -f2 | sed 's/^ //g'))
+    set MAKE_DEPENDS (string split ' ' (yay -Sai "$package" | grep -i "Make Deps" | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g'))
 end
 
 function private_get_make_depends -a package
-    set MAKE_DEPENDS (string split ' ' (yay -Sai "$package" | grep -i "Make Deps" | cut -d':' -f2 | sed 's/^ //g'))
+    set MAKE_DEPENDS (string split ' ' (yay -Sai "$package" | grep -i "Make Deps" | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g'))
 end
 
 function aur_get_depends -a package
-    set DEPENDS (string split ' ' (yay -Sai "$package" | grep -i "Depends" | cut -d':' -f2 | sed 's/^ //g'))
+    set DEPENDS (string split ' ' (yay -Sai "$package" | grep -i "Depends" | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g'))
 end
 
 set PACKAGES (cat $PACKAGE_LIST)
@@ -92,12 +92,23 @@ if test ! -f /usr/bin/yay
 end
 
 for package in $PACKAGES
+    if test -z $package
+        continue
+    end
+
     set splitted (string split ' ' (echo "$package"))
     "$splitted[1]_get_make_depends" $splitted[2]
     "$splitted[1]_get_depends" $splitted[2]
 
-    install_packages $MAKE_DEPENDS
-    install_packages $DEPENDS
+    if test ! -z $MAKE_DEPENDS
+        echo "Installing Make Dependencies"
+        install_packages $MAKE_DEPENDS
+    end
+
+    if test ! -z $DEPENDS
+        echo "Installing Dependencies"
+        install_packages $DEPENDS
+    end
 
     cd build
     download_pkgbuild "$splitted[2]"
