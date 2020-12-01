@@ -1,7 +1,7 @@
 FROM archlinux
 
 RUN pacman -Suy --noconfirm &&\
-    pacman -S sudo fish git go base-devel --noconfirm &&\
+    pacman -S sudo git go base-devel --noconfirm &&\
     useradd yay &&\
     mkdir -p /home/yay &&\
     chown -R yay:yay /home/yay &&\
@@ -24,10 +24,10 @@ RUN cd /tmp/yay &&\
 
 USER yay
 
-COPY build.fish /build
+COPY build.sh /build
 COPY package-list /build
 COPY dasbaumwolltier* /build/
 
 WORKDIR /build
 
-ENTRYPOINT /usr/bin/fish /build/build.fish
+ENTRYPOINT /bin/bash /build/build.sh
