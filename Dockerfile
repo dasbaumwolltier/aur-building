@@ -3,6 +3,8 @@ FROM archlinux
 RUN pacman -Suy --noconfirm &&\
     pacman -S sudo fish --noconfirm &&\
     useradd yay &&\
+    mkdir -p /home/yay &&\
+    chown -R yay:yay /home/yay &&\
     echo "tom ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN mkdir -p /build &&\
