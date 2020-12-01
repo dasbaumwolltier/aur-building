@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 BUILD_DIR=$(realpath build)
 PACKAGE_LIST=$(realpath package-list)
 PACMAN_DB_NAME=$(realpath dasbaumwolltier)
