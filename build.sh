@@ -42,14 +42,6 @@ case $key in
 esac
 done
 
-if ! gpg --list-public-keys "$SIGN_EMAIL" &> /dev/null ; then
-    gpg --import "$CRTFILE"
-fi
-
-if ! gpg --list-secret-keys "$SIGN_EMAIL" &> /dev/null; then
-    gpg --import "$KEYFILE"
-fi
-
 mkdir -p "$BUILD_DIR"
 mkdir -p "$BUILD_DIR/packages"
 
@@ -113,6 +105,16 @@ function aur_get_depends {
 
 sudo pacman -Syu --noconfirm
 install_packages git base-devel sudo
+
+if ! gpg --list-public-keys "$SIGN_EMAIL" &> /dev/null ; then
+    sudo pacman-key --add "$CRTFILE"
+    sudo pacman-key --lsign-key "$SIGN_EMAIL"
+fi
+
+if ! gpg --list-secret-keys "$SIGN_EMAIL" &> /dev/null; then
+    sudo pacman-key --add "$KEYFILE"
+    sudo pacman-key --lsign-key "$SIGN_EMAIL"
+fi
 
 if [ ! -f /usr/bin/yay ]; then
     install_yay
