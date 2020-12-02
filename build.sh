@@ -3,6 +3,9 @@
 BUILD_DIR=$(realpath build)
 PACKAGE_LIST=$(realpath package-list)
 PACMAN_DB_NAME=$(realpath dasbaumwolltier)
+CRTFILE=$(realpath sign.crt)
+KEYFILE=$(realpath sign.key)
+SIGN_EMAIL=daemons@guldner.eu
 COMPRESSION=zst
 ARCH=x86_64
 
@@ -39,6 +42,14 @@ case $key in
 esac
 done
 
+if ! gpg --list-public-keys "$SIGN_EMAIL" &> /dev/null ; then
+    gpg --import "$CRTFILE"
+fi
+
+if ! gpg --list-secret-keys "$SIGN_EMAIL" &> /dev/null; then
+    gpg --import "$KEYFILE"
+fi
+
 mkdir -p "$BUILD_DIR"
 mkdir -p "$BUILD_DIR/packages"
 
@@ -55,7 +66,7 @@ function install_packages {
 }
 
 function call_makepkg {
-    makepkg $@
+    makepkg --sign --key "$SIGN_EMAIL" $@
     return $?
 }
 
@@ -143,13 +154,17 @@ done < "$PACKAGE_LIST"
 
 cd "$BUILD_DIR/packages"
 ls -la
-repo-add "$PACMAN_DB_NAME.db.tar.$COMPRESSION" $BUILD_DIR/packages/*.pkg.tar.*
+repo-add --sign --verify --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" $BUILD_DIR/packages/*.pkg.tar.*
 
 for f in $BUILD_DIR/packages/*.pkg.tar.*; do
     upload_file "$f"
 done
 
 upload_file "$PACMAN_DB_NAME.db"
+upload_file "$PACMAN_DB_NAME.db.sig"
 upload_file "$PACMAN_DB_NAME.db.tar.$COMPRESSION"
+upload_file "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig"
 upload_file "$PACMAN_DB_NAME.files"
+upload_file "$PACMAN_DB_NAME.files.sig"
 upload_file "$PACMAN_DB_NAME.files.tar.$COMPRESSION"
+upload_file "$PACMAN_DB_NAME.files.tar.$COMPRESSION.sig"
