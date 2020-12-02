@@ -1,6 +1,8 @@
 FROM archlinux
 
-RUN pacman -Suy --noconfirm &&\
+RUN pacman-key --init &&\
+    pacman-key --populate archlinux &&\
+    pacman -Suy --noconfirm &&\
     pacman -S sudo git go base-devel --noconfirm &&\
     useradd yay &&\
     mkdir -p /home/yay &&\
