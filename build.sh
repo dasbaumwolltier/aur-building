@@ -151,7 +151,7 @@ done < "$PACKAGE_LIST"
 
 cd "$BUILD_DIR/packages"
 ls -la
-repo-add --sign --verify --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" $BUILD_DIR/packages/*.pkg.tar.*
+repo-add --sign --verify --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" $BUILD_DIR/packages/*.pkg.tar.$COMPRESSION
 
 for f in $BUILD_DIR/packages/*.pkg.tar.*; do
     upload_file "$f"

@@ -28,7 +28,6 @@ USER yay
 
 COPY build.sh /build
 COPY package-list /build
-COPY dasbaumwolltier* /build/
 
 WORKDIR /build
 
