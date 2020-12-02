@@ -5,7 +5,6 @@ PACKAGE_LIST=$(realpath package-list)
 PACMAN_DB_NAME=$(realpath dasbaumwolltier)
 CRTFILE=$(realpath sign.crt)
 KEYFILE=$(realpath sign.key)
-SIGN_EMAIL=daemons@guldner.eu
 COMPRESSION=zst
 ARCH=x86_64
 
@@ -106,15 +105,9 @@ function aur_get_depends {
 sudo pacman -Syu --noconfirm
 install_packages git base-devel sudo
 
-if ! gpg --list-public-keys "$SIGN_EMAIL" &> /dev/null ; then
-    sudo pacman-key --add "$CRTFILE"
-    sudo pacman-key --lsign-key "$SIGN_EMAIL"
-fi
-
-if ! gpg --list-secret-keys "$SIGN_EMAIL" &> /dev/null; then
-    sudo pacman-key --add "$KEYFILE"
-    sudo pacman-key --lsign-key "$SIGN_EMAIL"
-fi
+sudo pacman-key --add "$CRTFILE"
+sudo pacman-key --add "$KEYFILE"
+sudo pacman-key --lsign-key "$SIGN_EMAIL"
 
 if [ ! -f /usr/bin/yay ]; then
     install_yay
