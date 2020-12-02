@@ -1,14 +1,29 @@
 aur yay
 
+aur bloomrpc
+
+aur dotdrop
+
+aur git-interactive-rebase-tool
+
+aur gns3-gui
+aur gns3-server
+
+aur grass
+
+aur jetbrains-toolbox
+
+aur koi-git
+
 aur mbuffer
+
+aur mqtt-spy
 
 aur electron6-bin
 aur notion-app
 
-aur koi-git
-
 aur teams
 
-aur mqtt-spy
+aur zenmap
 
 aur neee
