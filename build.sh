@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+
+DEBUG=1
+
+[ $DEBUG ] && set -x
 
 BUILD_DIR=$(realpath build)
 PACKAGE_LIST=$(realpath package-list)
@@ -80,7 +84,10 @@ function download_pkgbuild {
 }
 
 function upload_file {
+    set +x
     curl --user "$REPO_USER:$REPO_PASS" --upload-file "$1" "$REPO_URL/$ARCH/$(basename $1)"
+
+    [ $DEBUG ] && set -x
 }
 
 MAKE_DEPENDS=()
@@ -114,6 +121,8 @@ sudo pacman-key --lsign-key "$SIGN_EMAIL"
 if [ ! -f /usr/bin/yay ]; then
     install_yay
 fi
+
+cat "$PACKAGE_LIST"
 
 while read -r package; do
     if [ -z "$package" ]; then
