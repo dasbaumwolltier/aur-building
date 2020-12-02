@@ -124,7 +124,7 @@ fi
 
 cat "$PACKAGE_LIST"
 
-while read -r package; do
+while read package; do
     if [ -z "$package" ]; then
         continue
     fi
