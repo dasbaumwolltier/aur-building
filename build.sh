@@ -89,7 +89,7 @@ function download_pkgbuild {
 }
 
 function upload_file {
-    curl --user "$REPO_USER:$REPO_PASS" --upload-file "$1" "$REPO_URL/$ARCH/$(basename $filename)"
+    curl --user "$REPO_USER:$REPO_PASS" --upload-file "$1" "$REPO_URL/$ARCH/$(basename $1)"
 }
 
 MAKE_DEPENDS=()
