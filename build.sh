@@ -105,6 +105,8 @@ function aur_get_depends {
 sudo pacman -Syu --noconfirm
 install_packages git base-devel sudo
 
+gpg --import "$CRTFILE"
+gpg --import "$KEYFILE"
 sudo pacman-key --add "$CRTFILE"
 sudo pacman-key --add "$KEYFILE"
 sudo pacman-key --lsign-key "$SIGN_EMAIL"
