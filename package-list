@@ -3,6 +3,9 @@ aur yay
 aur python-magic-ahupp
 aur dotdrop
 
+aur dict-freedict-deu-swe-bin
+aur dict-freedict-swe-deu-bin
+
 aur git-interactive-rebase-tool
 
 aur gns3-gui
@@ -20,6 +23,8 @@ aur mqtt-spy
 
 aur electron6-bin
 aur notion-app
+
+aur papyrus
 
 aur scrcpy
 
