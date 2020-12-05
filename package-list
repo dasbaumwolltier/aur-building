@@ -8,7 +8,9 @@ aur dict-freedict-swe-deu-bin
 
 aur git-interactive-rebase-tool
 
+aur python-sentry_sdk
 aur gns3-gui
+
 aur gns3-server
 
 aur grass
