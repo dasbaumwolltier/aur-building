@@ -83,6 +83,19 @@ function download_pkgbuild {
     return $?
 }
 
+function get_version {
+    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" "$1" | grep 'Version' | cut -d':' -f2 | tr -d ' ' | tail -1)"
+}
+
+function download_file {
+    set +x
+    for file in $@; do
+        curl "$REPO_URL/$ARCH/$file" > $file
+    done
+
+    [ $DEBUG ] && set -x
+}
+
 function upload_file {
     set +x
     curl --user "$REPO_USER:$REPO_PASS" --upload-file "$1" "$REPO_URL/$ARCH/$(basename $1)"
@@ -92,6 +105,7 @@ function upload_file {
 
 MAKE_DEPENDS=()
 DEPENDS=()
+GET_VERSION=""
 
 function aur_get_make_depends {
     # IFS=' ' read -ra MAKE_DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Make Deps' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
@@ -124,6 +138,10 @@ fi
 
 cat "$PACKAGE_LIST"
 
+mkdir -p "$BUILD_DIR/database/sync"
+cd "$BUILD_DIR/database/sync"
+download_file "$PACMAN_DB_NAME.db" "$PACMAN_DB_NAME.db.sig"
+
 while read package; do
     if [ -z "$package" ]; then
         continue
@@ -132,6 +150,8 @@ while read package; do
     echo $package
 
     IFS=' ' read -ra splitted <<< "$package"
+
+    get_version "${splitted[1]}"
 
     cd build
     download_pkgbuild "${splitted[1]}"
@@ -150,6 +170,7 @@ while read package; do
     fi
 
     cd "${splitted[1]}"
+    download_file "${splitted[1]}-$GET_VERSION-$ARCH.pkg.tar.$COMPRESSION"
     call_makepkg
     cp $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.* "$BUILD_DIR/packages/"
 
