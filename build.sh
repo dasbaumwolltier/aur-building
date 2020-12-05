@@ -139,8 +139,8 @@ fi
 cat "$PACKAGE_LIST"
 
 mkdir -p "$BUILD_DIR/database/sync"
-cd "$BUILD_DIR/database/sync"
-download_file "$PACMAN_DB_NAME.db" "$PACMAN_DB_NAME.db.sig"
+cp "$PACMAN_DB_NAME.db" "$BUILD_DIR/database/sync"
+cp "$PACMAN_DB_NAME.db.sig" "$BUILD_DIR/database/sync"
 
 while read package; do
     if [ -z "$package" ]; then
