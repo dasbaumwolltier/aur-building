@@ -173,7 +173,11 @@ while read package; do
     fi
 
     cd "${splitted[1]}"
-    download_file "${splitted[1]}-$GET_VERSION-$ARCH.pkg.tar.$COMPRESSION"
+
+    if [ -n "$GET_VERSION" ]; then
+        download_file "${splitted[1]}-$GET_VERSION-$ARCH.pkg.tar.$COMPRESSION"
+    fi
+
     call_makepkg
     cp $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.* "$BUILD_DIR/packages/"
 
