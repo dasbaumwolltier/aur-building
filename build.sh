@@ -90,12 +90,13 @@ function get_version {
 }
 
 function download_file {
-    set +x
+    #set +x
+    
     for file in $@; do
         curl "$REPO_URL/$ARCH/$file" -f -o $file
     done
 
-    [ $DEBUG ] && set -x
+    #[ $DEBUG ] && set -x
 }
 
 function upload_file {
