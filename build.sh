@@ -141,8 +141,9 @@ fi
 cat "$PACKAGE_LIST"
 
 mkdir -p "$BUILD_DIR/database/sync"
-cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$BUILD_DIR/database/sync/$PACMAN_DB_NAME.db"
-cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$PACMAN_DB_NAME.sig"
+ls -la /build
+cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).db"
+cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).sig"
 
 while read package; do
     if [ -z "$package" ]; then
