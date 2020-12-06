@@ -1,5 +1,7 @@
 FROM archlinux
 
+ARG REPOSITORY_NAME=dasbaumwolltier
+
 RUN pacman-key --init &&\
     pacman-key --populate archlinux &&\
     pacman -Suy --noconfirm &&\
@@ -10,7 +12,8 @@ RUN pacman-key --init &&\
     echo "yay ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN mkdir -p /build &&\
-    chown -R yay:yay /build
+    chown -R yay:yay /build &&\
+    echo "[${REPOSITORY_NAME}]" >> /build/pacman.conf
 
 USER yay
 

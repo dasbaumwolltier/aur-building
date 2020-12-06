@@ -84,7 +84,7 @@ function download_pkgbuild {
 }
 
 function get_version {
-    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" "$1" | grep 'Version' | cut -d':' -f2 | tr -d ' ' | tail -1)"
+    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$BUILD_DIR/pacman.conf" "$1" | grep 'Version' | cut -d':' -f2 | tr -d ' ' | tail -1)"
 }
 
 function download_file {
