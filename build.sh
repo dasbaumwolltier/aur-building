@@ -92,7 +92,7 @@ function get_version {
 function download_file {
     set +x
     for file in $@; do
-        curl "$REPO_URL/$ARCH/$file" > $file
+        curl "$REPO_URL/$ARCH/$file" -f -o $file
     done
 
     [ $DEBUG ] && set -x
