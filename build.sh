@@ -12,6 +12,8 @@ KEYFILE=$(realpath sign.key)
 COMPRESSION=zst
 ARCH=x86_64
 
+PACMAN_CONF=$(realpath pacman.conf)
+
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do
 
@@ -84,7 +86,7 @@ function download_pkgbuild {
 }
 
 function get_version {
-    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$BUILD_DIR/pacman.conf" "$1" | grep 'Version' | cut -d':' -f2 | tr -d ' ' | tail -1)"
+    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep 'Version' | cut -d':' -f2 | tr -d ' ' | tail -1)"
 }
 
 function download_file {
@@ -139,8 +141,8 @@ fi
 cat "$PACKAGE_LIST"
 
 mkdir -p "$BUILD_DIR/database/sync"
-cp "$PACMAN_DB_NAME.db" "$BUILD_DIR/database/sync"
-cp "$PACMAN_DB_NAME.db.sig" "$BUILD_DIR/database/sync"
+cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$BUILD_DIR/database/sync/$PACMAN_DB_NAME.db"
+cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$PACMAN_DB_NAME.sig"
 
 while read package; do
     if [ -z "$package" ]; then
