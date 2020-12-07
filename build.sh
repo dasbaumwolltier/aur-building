@@ -92,6 +92,7 @@ function download_pkgbuild {
 
 function get_version {
     GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep 'Version' | cut -d':' -f2 | tr -d ' ' | tail -1)"
+    GET_ARCH="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep Architecture | cut -d':' -f2 | tr -d ' ' | tail -1)"
 }
 
 function download_file {
@@ -114,6 +115,7 @@ function upload_file {
 MAKE_DEPENDS=()
 DEPENDS=()
 GET_VERSION=""
+GET_ARCH=""
 
 function aur_get_make_depends {
     # IFS=' ' read -ra MAKE_DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Make Deps' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
@@ -181,7 +183,7 @@ while read package; do
     cd "${splitted[1]}"
 
     if [ -n "$GET_VERSION" ]; then
-        download_file "${splitted[1]}-$GET_VERSION-$ARCH.pkg.tar.$COMPRESSION"
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
     fi
 
     call_makepkg
