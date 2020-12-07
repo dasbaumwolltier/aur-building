@@ -5,7 +5,7 @@ ARG REPOSITORY_NAME=dasbaumwolltier
 RUN pacman-key --init &&\
     pacman-key --populate archlinux &&\
     pacman -Suy --noconfirm &&\
-    pacman -S sudo git go base-devel --noconfirm &&\
+    pacman -S sudo git go base-devel wget --noconfirm &&\
     useradd yay &&\
     mkdir -p /home/yay &&\
     chown -R yay:yay /home/yay &&\
