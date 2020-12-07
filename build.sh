@@ -99,7 +99,7 @@ function download_file {
     #set +x
 
     for file in $@; do
-        curl "$REPO_URL/$ARCH/$file" -f -o $file
+        wget "$REPO_URL/$ARCH/$file" --read-timeout=5 --tries=5 -O "$file"
     done
 
     #[ $DEBUG ] && set -x
