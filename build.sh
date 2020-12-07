@@ -50,6 +50,11 @@ done
 mkdir -p "$BUILD_DIR"
 mkdir -p "$BUILD_DIR/packages"
 
+cp $PACMAN_DB_NAME.db.* "$BUILD_DIR/"
+cp $PACMAN_DB_NAME.files.* "$BUILD_DIR/"
+
+PACMAN_DB_NAME="$BUILD_DIR/$(basename $PACMAN_DB_NAME)"
+
 if [ ! -f $PACKAGE_LIST ]; then
     exit 1
 fi
