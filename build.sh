@@ -198,6 +198,11 @@ cd "$BUILD_DIR/packages"
 ls -la
 repo-add --sign --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" $BUILD_DIR/packages/*.pkg.tar.$COMPRESSION
 
+ln -s "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$PACMAN_DB_NAME.db"
+ln -s "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$PACMAN_DB_NAME.db.sig"
+ln -s "$PACMAN_DB_NAME.files.tar.$COMPRESSION" "$PACMAN_DB_NAME.files"
+ln -s "$PACMAN_DB_NAME.files.tar.$COMPRESSION.sig" "$PACMAN_DB_NAME.files.sig"
+
 for f in $BUILD_DIR/packages/*.pkg.tar.*; do
     upload_file "$f"
 done
