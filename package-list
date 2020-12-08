@@ -23,8 +23,6 @@ aur jetbrains-toolbox
 
 aur koi-git
 
-aur mbuffer
-
 aur mkpasswd
 
 aur mqtt-spy
@@ -43,6 +41,10 @@ aur parsoid
 aur polygone
 
 aur rekcod
+
+aur mbuffer
+aur perl-config-inifiles
+aur sanoid
 
 aur scrcpy
 
