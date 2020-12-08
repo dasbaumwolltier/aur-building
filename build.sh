@@ -68,7 +68,7 @@ function install_packages {
 }
 
 function call_makepkg {
-    makepkg --sign --key "$SIGN_EMAIL" $@
+    makepkg --skippgpcheck --sign --key "$SIGN_EMAIL" $@
     return $?
 }
 
