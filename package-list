@@ -1,5 +1,9 @@
 aur yay
 
+aur apache-tools
+
+aur aws-cli-v2-bin
+
 aur python-magic-ahupp
 aur dotdrop
 
@@ -21,12 +25,18 @@ aur koi-git
 
 aur mbuffer
 
+aur mkpasswd
+
 aur mqtt-spy
+
+aur nexus-oss
 
 aur electron6-bin
 aur notion-app
 
 aur papyrus
+
+aur parsoid
 
 aur polygone
 
@@ -34,11 +44,17 @@ aur octave-signal
 
 aur scrcpy
 
+aur searx
+
 aur teams
+
+aur perl-authen-pam
+aur perl-encode-detect
+aur webmin
 
 aur pygtk
 aur zenmap
 
 aur bloomrpc
 
-aur neee
+This line is here because bash does not read the last line.
