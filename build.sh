@@ -184,6 +184,7 @@ while read package; do
 
     if [ -n "$GET_VERSION" ]; then
         download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
     fi
 
     call_makepkg
