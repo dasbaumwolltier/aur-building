@@ -4,6 +4,10 @@ aur apache-tools
 
 aur aws-cli-v2-bin
 
+aur bitwarden-bin
+
+aur chatty
+
 aur python-magic-ahupp
 aur dotdrop
 
@@ -18,6 +22,8 @@ aur gns3-gui
 aur gns3-server
 
 aur grass
+
+aur insomnia
 
 aur jetbrains-toolbox
 
@@ -37,6 +43,9 @@ aur octave-signal
 aur papyrus
 
 aur parsoid
+
+aur python-vdf
+aur protontricks
 
 aur polygone
 
