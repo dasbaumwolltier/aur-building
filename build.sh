@@ -60,8 +60,8 @@ if [ ! -f $PACKAGE_LIST ]; then
 fi
 
 function install_packages {
-    for package in $@; do
-        sudo pacman -S --noconfirm --needed $package
+    for p in $@; do
+        sudo pacman -S --noconfirm --needed $p
     done
 
     return $?
@@ -153,14 +153,14 @@ ls -la /build
 cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).db"
 cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).sig"
 
-while read package; do
-    if [ -z "$package" ]; then
+while read package_name; do
+    if [ -z "$package_name" ]; then
         continue
     fi
 
-    echo $package
+    echo $package_name
 
-    IFS=' ' read -ra splitted <<< "$package"
+    IFS=' ' read -ra splitted <<< "$package_name"
 
     get_version "${splitted[1]}"
 
