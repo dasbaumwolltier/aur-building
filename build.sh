@@ -153,7 +153,7 @@ ls -la /build
 cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).db"
 cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).sig"
 
-while read package_name; do
+while read -u10 package_name; do
     if [ -z "$package_name" ]; then
         continue
     fi
@@ -193,7 +193,7 @@ while read package_name; do
     sudo pacman -U --noconfirm $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.$COMPRESSION
 
     cd ../..
-done < "$PACKAGE_LIST"
+done 10< "$PACKAGE_LIST"
 
 cd "$BUILD_DIR/packages"
 ls -la
