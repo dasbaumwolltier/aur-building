@@ -2,6 +2,8 @@ aur yay
 
 aur apache-tools
 
+aur angular-cli
+
 aur aws-cli-v2-bin
 
 aur bitwarden-bin
@@ -23,6 +25,7 @@ aur gns3-server
 
 aur grass
 
+aur nvm
 aur insomnia
 
 aur jetbrains-toolbox
@@ -35,8 +38,7 @@ aur mqtt-spy
 
 aur nexus-oss
 
-aur nodejs-nativefier
-aur notion-app-nativefier
+aur notion-app
 
 aur octave-signal
 
