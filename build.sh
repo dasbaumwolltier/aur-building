@@ -91,8 +91,8 @@ function download_pkgbuild {
 }
 
 function get_version {
-    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep 'Version' | cut -d':' -f2 | tr -d ' ' | tail -1)"
-    GET_ARCH="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep Architecture | cut -d':' -f2 | tr -d ' ' | tail -1)"
+    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep 'Version' | cut -d':' -f2- | tr -d ' ' | tail -1)"
+    GET_ARCH="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep Architecture | cut -d':' -f2- | tr -d ' ' | tail -1)"
 }
 
 function download_file {
@@ -123,7 +123,7 @@ function aur_get_make_depends {
 }
 
 function private_get_make_depends {
-    IFS=' ' read -ra MAKE_DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Make Deps' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
+    IFS=' ' read -ra MAKE_DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Make Deps' | cut -d':' -f2- | sed 's/^ //g' | sed 's/None//g')"
 }
 
 function aur_get_depends {
