@@ -197,8 +197,11 @@ done 10< "$PACKAGE_LIST"
 
 cd "$BUILD_DIR/packages"
 ls -la
-(echo $BUILD_DIR/packages/*.pkg.tar.$COMPRESSION | tr ' ' '\n' | tee > current_file | xargs -L1 repo-add --sign --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION") \
-    && upload_file "$(cat current_file)"
+
+for file in $BUILD_DIR/packages/*.pkg.tar.$COMPRESSION; do
+    repo-add --sign --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$file" \
+        && upload_file "$file"
+done
 
 cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$PACMAN_DB_NAME.db"
 cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$PACMAN_DB_NAME.db.sig"
