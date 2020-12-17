@@ -86,7 +86,7 @@ function install_yay {
 }
 
 function download_pkgbuild {
-    yay -Ga --noconfirm --nopgpfetch $@
+    yay -G --noconfirm --nopgpfetch $@
     return $?
 }
 
