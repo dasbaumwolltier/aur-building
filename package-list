@@ -77,9 +77,6 @@ aur wiki-js
 aur pygtk
 aur zenmap
 
-aur php-composer
-aur z-push
-
 aur bloomrpc
 
 This line is here because bash does not read the last line.
