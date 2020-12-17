@@ -50,6 +50,8 @@ aur parsoid
 
 aur pg_repack
 
+aur perl-crypt-rijndael
+
 aur polygone
 
 aur python38
@@ -74,6 +76,8 @@ aur wiki-js
 
 aur pygtk
 aur zenmap
+
+aur z-push
 
 aur bloomrpc
 
