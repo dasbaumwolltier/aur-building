@@ -18,6 +18,8 @@ aur dotdrop
 aur dict-freedict-deu-swe-bin
 aur dict-freedict-swe-deu-bin
 
+aur git-credential-kwallet-git
+
 aur git-interactive-rebase-tool
 
 aur python-sentry_sdk
