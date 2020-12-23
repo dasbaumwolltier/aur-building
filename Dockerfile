@@ -9,7 +9,7 @@ RUN pacman-key --init &&\
     pacman -S sudo git go base-devel clang wget --noconfirm
 
 RUN mkdir /build &&\
-    chown -R 1000:1000 &&\
+    chown -R 1000:1000 /build &&\
     echo "[${REPOSITORY_NAME}]" >> /build/pacman.conf
 
 USER 1000
