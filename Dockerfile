@@ -8,9 +8,11 @@ RUN pacman-key --init &&\
     pacman -Suy --noconfirm &&\
     pacman -S sudo git go base-devel clang wget --noconfirm
 
-RUN echo "[${REPOSITORY_NAME}]" >> /build/pacman.conf
+RUN mkdir /build &&\
+    chown -R 1000:1000 &&\
+    echo "[${REPOSITORY_NAME}]" >> /build/pacman.conf
 
-USER yay
+USER 1000
 COPY build.sh /build
 COPY package-list /build
 
