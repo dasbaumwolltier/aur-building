@@ -1,31 +1,27 @@
-FROM archlinux
+FROM dasbaumwolltier/archlinux-yay
 
 ARG REPOSITORY_NAME=dasbaumwolltier
 
 RUN pacman-key --init &&\
     pacman-key --populate archlinux &&\
     pacman -Suy --noconfirm &&\
-    pacman -S sudo git go base-devel clang wget --noconfirm &&\
-    useradd yay &&\
-    mkdir -p /home/yay &&\
-    chown -R yay:yay /home/yay &&\
-    echo "yay ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    pacman -S sudo git go base-devel clang wget --noconfirm
 
-RUN mkdir -p /build &&\
-    chown -R yay:yay /build &&\
-    echo "[${REPOSITORY_NAME}]" >> /build/pacman.conf
+# RUN mkdir -p /build &&\
+#     chown -R yay:yay /build &&\
+RUN echo "[${REPOSITORY_NAME}]" >> /build/pacman.conf
 
-USER yay
+# USER yay
 
-RUN mkdir -p /tmp &&\
-    cd /tmp &&\
-    git clone https://aur.archlinux.org/yay.git &&\
-    cd yay &&\
-    makepkg
+# RUN mkdir -p /tmp &&\
+#     cd /tmp &&\
+#     git clone https://aur.archlinux.org/yay.git &&\
+#     cd yay &&\
+#     makepkg
 
-USER root
-RUN cd /tmp/yay &&\
-    pacman -U --noconfirm yay-*.pkg.tar.*
+# USER root
+# RUN cd /tmp/yay &&\
+#     pacman -U --noconfirm yay-*.pkg.tar.*
 
 USER yay
 
