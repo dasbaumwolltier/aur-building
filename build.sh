@@ -99,7 +99,7 @@ function download_file {
     #set +x
 
     for file in $@; do
-        wget "$REPO_URL/$ARCH/$file" --read-timeout=5 --tries=5 -O "$file"
+        wget "$REPO_URL/$ARCH/$file" --read-timeout=5 --tries=5 -O "$file" || rm "$file"
     done
 
     #[ $DEBUG ] && set -x
@@ -200,7 +200,7 @@ ls -la
 
 for file in $BUILD_DIR/packages/*.pkg.tar.$COMPRESSION; do
     repo-add --sign --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$file" \
-        && upload_file "$file"
+        && upload_file "$file" && upload_file "$file.sig"
 done
 
 cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$PACMAN_DB_NAME.db"
