@@ -18,6 +18,10 @@ aur dotdrop
 aur dict-freedict-deu-swe-bin
 aur dict-freedict-swe-deu-bin
 
+aur duplicati-latest
+
+aur epstool
+
 aur git-credential-kwallet-git
 
 aur git-interactive-rebase-tool
@@ -34,6 +38,8 @@ aur insomnia
 
 aur jetbrains-toolbox
 
+aur liquidctl-git
+
 aur kind
 
 aur koi-git
@@ -45,6 +51,8 @@ aur mqtt-spy
 aur nexus-oss
 
 aur notion-app
+
+aur nodejs-nativefier
 
 aur octave-signal
 
