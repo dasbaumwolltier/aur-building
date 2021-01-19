@@ -188,9 +188,12 @@ while read -u10 package_name; do
     fi
 
     call_makepkg
-    cp $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.* "$BUILD_DIR/packages/"
+    # cp $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.* "$BUILD_DIR/packages/"
 
-    sudo pacman -U --noconfirm $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.$COMPRESSION
+    for f in $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.$COMPRESSION; do
+        sudo pacman -U --noconfirm $f && \
+        cp $f "$BUILD_DIR/packages/"
+    done
 
     cd ../..
 done 10< "$PACKAGE_LIST"
@@ -199,7 +202,7 @@ cd "$BUILD_DIR/packages"
 ls -la
 
 for file in $BUILD_DIR/packages/*.pkg.tar.$COMPRESSION; do
-    repo-add --sign --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$file" \
+    repo-add --sign --prevent-downgrade --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$file" \
         && upload_file "$file" && upload_file "$file.sig"
 done
 
