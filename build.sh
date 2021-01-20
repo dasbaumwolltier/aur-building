@@ -191,8 +191,9 @@ while read -u10 package_name; do
     # cp $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.* "$BUILD_DIR/packages/"
 
     for f in $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.$COMPRESSION; do
-        sudo pacman -U --noconfirm $f && \
-        cp $f "$BUILD_DIR/packages/"
+        sudo pacman -U --noconfirm "$f" && \
+        cp "$f" "$BUILD_DIR/packages/" && \
+        cp "$f.sig" "$BUILD_DIR/packages/" && \
     done
 
     cd ../..
