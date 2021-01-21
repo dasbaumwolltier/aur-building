@@ -96,8 +96,8 @@ function personal_download_pkgbuild {
 }
 
 function get_version {
-    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep 'Version' | cut -d':' -f2- | tr -d ' ' | tail -1)"
-    GET_ARCH="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | grep Architecture | cut -d':' -f2- | tr -d ' ' | tail -1)"
+    GET_VERSION="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | awk '($1=="Version"){print $3;}')"
+    GET_ARCH="$(pacman -Sib "$BUILD_DIR/database" --config "$PACMAN_CONF" "$1" | awk '($1=="Architecture"){print $3;}')"
 }
 
 function download_file {
@@ -155,7 +155,20 @@ function get_pkgbuild_version {
     (. "$1/PKGBUILD"; pkgver); is_function=$?
 
     if [ $is_function -eq 127 ]; then
-        IFS=' ' read -ra PKGBUILD_VERSION <<< "$(. "$1/PKGBUILD"; echo ${pkgver})"
+        local tmp
+        IFS=' ' read -ra tmp <<< "$(. "$1/PKGBUILD"; echo ${pkgver})"
+        PKGBUILD_VERSION = "$tmp"
+
+        IFS=' ' read -ra tmp <<< "$(. "$1/PKGBUILD"; echo ${pkgrel})"
+        if [ -n "$tmp" ]; then
+            PKGBUILD_VERSION = "$PKGBUILD_VERSION-$tmp"
+        fi
+
+        IFS=' ' read -ra tmp <<< "$(. "$1/PKGBUILD"; echo ${epoch})"
+        if [ -n "$tmp" ]; then
+            PKGBUILD_VERSION = "$tmp:$PKGBUILD_VERSION"
+        fi        
+
         return 0
     fi
 
