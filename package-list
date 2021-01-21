@@ -112,7 +112,10 @@ personal mautrix-signal-git
 
 aur mautrix-whatsapp-git
 
+aur python-aenum
+aur python-hbmqtt-tulir-git
 aur python-fbchat-asyncio-git
+
 personal mautrix-facebook-git
 
 aur python-imageio-ffmpeg
@@ -129,6 +132,8 @@ aur python-tifffile
 
 aur python-pywavelets
 aur python-scikit-image
+
+aur python-moviepy
 
 personal mautrix-telegram-git
 

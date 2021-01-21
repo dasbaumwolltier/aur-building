@@ -70,7 +70,7 @@ function install_packages {
 }
 
 function call_makepkg {
-    makepkg --skippgpcheck --sign --key "$SIGN_EMAIL" $@
+    makepkg --skippgpcheck --nocheck --sign --key "$SIGN_EMAIL" $@
     return $?
 }
 
@@ -89,7 +89,6 @@ function install_yay {
 
 function aur_download_pkgbuild {
     yay -G --noconfirm --nopgpfetch $@
-    return $?
 }
 
 function personal_download_pkgbuild {
@@ -122,24 +121,69 @@ MAKE_DEPENDS=()
 DEPENDS=()
 GET_VERSION=""
 GET_ARCH=""
+PKGBUILD_VERSION=""
+
+function get_make_depends {
+    IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$1/PKGBUILD"; echo ${makedepends[@]})"
+}
 
 function aur_get_make_depends {
     # IFS=' ' read -ra MAKE_DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Make Deps' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
-    IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$BUILD_DIR/$1/PKGBUILD"; echo ${makedepends[@]})"
+    get_make_depends "$BUILD_DIR/$1"
 }
 
 function personal_get_make_depends {
-    IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$BUILD_DIR/personal/$1/PKGBUILD"; echo ${makedepends[@]})"
+    get_make_depends "$BUILD_DIR/personal/$1"
+}
+
+function get_depends {
+    IFS=' ' read -ra DEPENDS <<< "$(. "$1/PKGBUILD"; echo ${depends[@]})"
 }
 
 function aur_get_depends {
     # IFS=' ' read -ra DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Depends' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
-    IFS=' ' read -ra DEPENDS <<< "$(. "$BUILD_DIR/$1/PKGBUILD"; echo ${depends[@]})"
+    get_depends "$BUILD_DIR/$1"
 }
 
 function personal_get_depends {
     # IFS=' ' read -ra DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Depends' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
-    IFS=' ' read -ra DEPENDS <<< "$(. "$BUILD_DIR/personal/$1/PKGBUILD"; echo ${depends[@]})"
+    get_depends "$BUILD_DIR/personal/$1"
+}
+
+function get_pkgbuild_version {
+    local is_function
+    (. "$1/PKBUILD"; pkgver); is_function=$?
+
+    if [ $is_function -eq 127 ]; then
+        IFS=' ' read -ra PKGBUILD_VERSION <<< "$(. "$1/PKBUILD"; echo ${pkgver})"
+        return 0
+    fi
+
+    return 1
+}
+
+function aur_get_pkgbuild_version {
+    get_pkgbuild_version "$BUILD_DIR/$1"
+}
+
+function personal_get_pkgbuild_version {
+    get_pkgbuild_version "$BUILD_DIR/personal/$1"
+}
+
+function compare_versions {
+    if "$2_get_pkgbuild_version" $1; then
+        return $(vercmp "$PKGBUILD_VERSION" "$GET_VERSION")
+    fi
+
+    return 127
+}
+
+function aur_compare_versions {
+    compare_versions $1 "aur"
+}
+
+function personal_compare_versions {
+    compare_versions $1 "personal"
 }
 
 # IFS=$'\n' read -d'\n' -ra PACKAGES < $PACKAGE_LIST
@@ -167,9 +211,11 @@ cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$(basenam
 while read -u10 package_name; do
     if [ -z "$package_name" ]; then
         continue
-    elif [ "$package_name" == "#"* ]; then
-        continue
     fi
+    
+    case "$package_name" in
+        \#*) continue ;;
+    esac
 
     echo $package_name
 
@@ -178,10 +224,17 @@ while read -u10 package_name; do
     get_version "${splitted[1]}"
 
     cd "$BUILD_DIR"
-    "${splitted[0]}_download_pkgbuild" "${splitted[1]}"
+    "${splitted[0]}_download_pkgbuild" ${splitted[1]}
 
     "${splitted[0]}_get_make_depends" ${splitted[1]}
     "${splitted[0]}_get_depends" ${splitted[1]}
+
+    "${splitted[0]}_compare_versions" ${splitted[1]} $GET_VERSION
+    res = $?
+
+    if [ $res -eq 255 ] || [ $res -eq 0 ]; then
+        continue
+    fi
 
     if [ ${#MAKE_DEPENDS[@]} -ne 0 ]; then
         echo "Installing Make Dependencies"
@@ -193,16 +246,16 @@ while read -u10 package_name; do
         install_packages ${DEPENDS[@]}
     fi
 
+    if [ -n "$GET_VERSION" ]; then
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
+    fi
+
     if [ "${splitted[0]}" == "personal" ]; then
         cd "personal"
     fi
 
     cd "${splitted[1]}"
-
-    if [ -n "$GET_VERSION" ]; then
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
-    fi
 
     CUR_DIR="$(pwd)"
 
