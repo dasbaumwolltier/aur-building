@@ -99,7 +99,11 @@ aur bloomrpc
 
 aur python-mautrix-git
 
+aur python-mechanicalsoup
+aur python-readlike
+aur python-reparser
 aur hangups
+
 personal mautrix-hangouts-git
 
 aur python-cryptg

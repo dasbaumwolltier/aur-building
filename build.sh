@@ -128,7 +128,7 @@ function aur_get_make_depends {
     IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$BUILD_DIR/$1/PKGBUILD"; echo ${makedepends[@]})"
 }
 
-function private_get_make_depends {
+function personal_get_make_depends {
     IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$BUILD_DIR/personal/$1/PKGBUILD"; echo ${makedepends[@]})"
 }
 
@@ -204,10 +204,12 @@ while read -u10 package_name; do
         download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
     fi
 
+    CUR_DIR="$(pwd)"
+
     call_makepkg
     # cp $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.* "$BUILD_DIR/packages/"
 
-    for f in $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.$COMPRESSION; do
+    for f in $CUR_DIR/${splitted[1]}*.pkg.tar.$COMPRESSION; do
         sudo pacman -U --noconfirm "$f" && \
         cp "$f" "$BUILD_DIR/packages/" && \
         cp "$f.sig" "$BUILD_DIR/packages/"
