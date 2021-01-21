@@ -157,16 +157,16 @@ function get_pkgbuild_version {
     if [ $is_function -eq 127 ]; then
         local tmp
         IFS=' ' read -ra tmp <<< "$(. "$1/PKGBUILD"; echo ${pkgver})"
-        PKGBUILD_VERSION = "$tmp"
+        PKGBUILD_VERSION="$tmp"
 
         IFS=' ' read -ra tmp <<< "$(. "$1/PKGBUILD"; echo ${pkgrel})"
         if [ -n "$tmp" ]; then
-            PKGBUILD_VERSION = "$PKGBUILD_VERSION-$tmp"
+            PKGBUILD_VERSION="$PKGBUILD_VERSION-$tmp"
         fi
 
         IFS=' ' read -ra tmp <<< "$(. "$1/PKGBUILD"; echo ${epoch})"
         if [ -n "$tmp" ]; then
-            PKGBUILD_VERSION = "$tmp:$PKGBUILD_VERSION"
+            PKGBUILD_VERSION="$tmp:$PKGBUILD_VERSION"
         fi        
 
         return 0
