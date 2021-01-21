@@ -53,6 +53,8 @@ mkdir -p "$BUILD_DIR/packages"
 cp $PACMAN_DB_NAME.db.* "$BUILD_DIR/"
 cp $PACMAN_DB_NAME.files.* "$BUILD_DIR/"
 
+cp -avR /build/personal "$BUILD_DIR/personal"
+
 PACMAN_DB_NAME="$BUILD_DIR/$(basename $PACMAN_DB_NAME)"
 
 if [ ! -f $PACKAGE_LIST ]; then
@@ -85,9 +87,13 @@ function install_yay {
     return $?
 }
 
-function download_pkgbuild {
+function aur_download_pkgbuild {
     yay -G --noconfirm --nopgpfetch $@
     return $?
+}
+
+function personal_download_pkgbuild {
+    return 0
 }
 
 function get_version {
@@ -123,12 +129,17 @@ function aur_get_make_depends {
 }
 
 function private_get_make_depends {
-    IFS=' ' read -ra MAKE_DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Make Deps' | cut -d':' -f2- | sed 's/^ //g' | sed 's/None//g')"
+    IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$BUILD_DIR/personal/$1/PKGBUILD"; echo ${makedepends[@]})"
 }
 
 function aur_get_depends {
     # IFS=' ' read -ra DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Depends' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
     IFS=' ' read -ra DEPENDS <<< "$(. "$BUILD_DIR/$1/PKGBUILD"; echo ${depends[@]})"
+}
+
+function personal_get_depends {
+    # IFS=' ' read -ra DEPENDS <<< "$(yay -Sai "$1" | grep -i 'Depends' | cut -d':' -f2 | sed 's/^ //g' | sed 's/None//g')"
+    IFS=' ' read -ra DEPENDS <<< "$(. "$BUILD_DIR/personal/$1/PKGBUILD"; echo ${depends[@]})"
 }
 
 # IFS=$'\n' read -d'\n' -ra PACKAGES < $PACKAGE_LIST
@@ -167,7 +178,7 @@ while read -u10 package_name; do
     get_version "${splitted[1]}"
 
     cd "$BUILD_DIR"
-    download_pkgbuild "${splitted[1]}"
+    "${splitted[0]}_download_pkgbuild" "${splitted[1]}"
 
     "${splitted[0]}_get_make_depends" ${splitted[1]}
     "${splitted[0]}_get_depends" ${splitted[1]}
@@ -180,6 +191,10 @@ while read -u10 package_name; do
     if [ ${#DEPENDS[@]} -ne 0 ]; then
         echo "Installing Dependencies"
         install_packages ${DEPENDS[@]}
+    fi
+
+    if [ "${splitted[0]}" == "personal" ]; then
+        cd "personal"
     fi
 
     cd "${splitted[1]}"

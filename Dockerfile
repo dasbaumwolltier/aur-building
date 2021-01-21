@@ -13,6 +13,7 @@ RUN mkdir /build &&\
     echo "[${REPOSITORY_NAME}]" >> /build/pacman.conf
 
 USER 1000
+COPY personal /build
 COPY build.sh /build
 COPY package-list /build
 

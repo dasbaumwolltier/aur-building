@@ -1,0 +1,32 @@
+pkgbase = mautrix-signal-git
+	pkgdesc = mautrix-signal puppeting/relaybot bridge
+	pkgver = r55.82cbefc
+	pkgrel = 1
+	url = https://github.com/tulir/mautrix-signal
+	arch = any
+	license = AGPL-3.0
+	makedepends = git
+	depends = python-sqlalchemy
+	depends = python-ruamel-yaml
+	depends = python-magic-git
+	depends = python-commonmark
+	depends = python-aiohttp
+	depends = python-mautrix-git
+	depends = python-cryptg
+	depends = python-cchardet
+	depends = python-aiodns
+	depends = python-brotli
+	depends = python-pillow
+	depends = python-asyncpg>=0.21
+	depends = python-olm
+	depends = python-phonenumbers
+	depends = python-pycryptodome
+	depends = python-unpaddedbase64
+	depends = python-matrix-nio
+	depends = signald-git
+	backup = etc/mautrix-signal/config.yaml
+	source = git+https://github.com/tulir/mautrix-signal.git
+	sha256sums = SKIP
+
+pkgname = mautrix-signal-git
+
