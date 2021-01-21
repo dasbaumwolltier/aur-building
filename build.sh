@@ -63,7 +63,8 @@ fi
 
 function install_packages {
     for p in $@; do
-        sudo pacman -S --noconfirm --needed $p
+        sudo pacman -S --noconfirm --needed $p || \
+        sudo pacman -U --noconfirm --needed $BUILD_DIR/packages/$p*.pkg.tar.$COMPRESSION
     done
 
     return $?
@@ -245,7 +246,16 @@ while read -u10 package_name; do
     "${splitted[0]}_compare_versions" ${splitted[1]} $GET_VERSION
     res=$?
 
+    if [ "${splitted[0]}" == "personal" ]; then
+        cd "personal"
+    fi
+
+    cd "${splitted[1]}"
+
     if [ $res -eq 255 ] || [ $res -eq 0 ]; then
+        cp ${splitted[1]}*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
+        cp ${splitted[1]}*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
+
         continue
     fi
 
@@ -258,12 +268,6 @@ while read -u10 package_name; do
         echo "Installing Dependencies"
         install_packages ${DEPENDS[@]}
     fi
-
-    if [ "${splitted[0]}" == "personal" ]; then
-        cd "personal"
-    fi
-
-    cd "${splitted[1]}"
 
     if [ -n "$GET_VERSION" ]; then
         download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
