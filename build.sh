@@ -156,6 +156,8 @@ cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$(basenam
 while read -u10 package_name; do
     if [ -z "$package_name" ]; then
         continue
+    elif [ "$package_name" == "#"* ]; then
+        continue
     fi
 
     echo $package_name

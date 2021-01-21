@@ -95,4 +95,38 @@ aur zenmap
 
 aur bloomrpc
 
+# Mautrix
+
+aur python-mautrix-git
+
+aur hangups
+aur python-magic-git
+aur mautrix-hangouts-git
+
+aur python-cryptg
+aur signald-git
+aur mautrix-signal-git
+
+aur mautrix-whatsapp-git
+
+aur python-fbchat-asyncio-git
+aur mautrix-facebook-git
+
+aur python-imageio-ffmpeg
+aur python-imageio
+aur python-proglog
+aur python-telethon
+aur python-telethon-session-sqlalchemy
+
+aur brunsli
+aur charls
+aur libdeflate
+aur python-imread
+aur python-tifffile
+
+aur python-pywavelets
+aur python-scikit-image
+
+aur mautrix-telegram-git
+
 This line is here because bash does not read the last line.
