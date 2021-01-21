@@ -230,7 +230,7 @@ while read -u10 package_name; do
     "${splitted[0]}_get_depends" ${splitted[1]}
 
     "${splitted[0]}_compare_versions" ${splitted[1]} $GET_VERSION
-    res = $?
+    res=$?
 
     if [ $res -eq 255 ] || [ $res -eq 0 ]; then
         continue
@@ -246,16 +246,16 @@ while read -u10 package_name; do
         install_packages ${DEPENDS[@]}
     fi
 
-    if [ -n "$GET_VERSION" ]; then
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
-    fi
-
     if [ "${splitted[0]}" == "personal" ]; then
         cd "personal"
     fi
 
     cd "${splitted[1]}"
+
+    if [ -n "$GET_VERSION" ]; then
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
+    fi
 
     CUR_DIR="$(pwd)"
 
