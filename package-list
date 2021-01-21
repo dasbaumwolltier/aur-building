@@ -129,4 +129,6 @@ aur python-scikit-image
 
 aur mautrix-telegram-git
 
+# End Mautrix
+
 This line is here because bash does not read the last line.

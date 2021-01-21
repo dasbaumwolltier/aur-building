@@ -166,7 +166,7 @@ while read -u10 package_name; do
 
     get_version "${splitted[1]}"
 
-    cd build
+    cd "$BUILD_DIR"
     download_pkgbuild "${splitted[1]}"
 
     "${splitted[0]}_get_make_depends" ${splitted[1]}
