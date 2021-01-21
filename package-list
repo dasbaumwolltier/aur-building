@@ -12,7 +12,7 @@ aur bitwarden-bin
 
 aur chatty
 
-aur python-magic-ahupp
+aur python-magic-git
 aur dotdrop
 
 aur dict-freedict-deu-swe-bin
@@ -100,17 +100,16 @@ aur bloomrpc
 aur python-mautrix-git
 
 aur hangups
-aur python-magic-git
-aur mautrix-hangouts-git
+personal mautrix-hangouts-git
 
 aur python-cryptg
 aur signald-git
-aur mautrix-signal-git
+personal mautrix-signal-git
 
 aur mautrix-whatsapp-git
 
 aur python-fbchat-asyncio-git
-aur mautrix-facebook-git
+personal mautrix-facebook-git
 
 aur python-imageio-ffmpeg
 aur python-imageio
@@ -127,7 +126,7 @@ aur python-tifffile
 aur python-pywavelets
 aur python-scikit-image
 
-aur mautrix-telegram-git
+personal mautrix-telegram-git
 
 # End Mautrix
 
