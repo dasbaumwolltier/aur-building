@@ -237,6 +237,11 @@ while read -u10 package_name; do
 
     get_version "${splitted[1]}"
 
+    if [ -n "$GET_VERSION" ]; then
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
+        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
+    fi
+
     cd "$BUILD_DIR"
     "${splitted[0]}_download_pkgbuild" ${splitted[1]}
 
@@ -267,11 +272,6 @@ while read -u10 package_name; do
     if [ ${#DEPENDS[@]} -ne 0 ]; then
         echo "Installing Dependencies"
         install_packages ${DEPENDS[@]}
-    fi
-
-    if [ -n "$GET_VERSION" ]; then
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
     fi
 
     CUR_DIR="$(pwd)"
