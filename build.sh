@@ -152,10 +152,10 @@ function personal_get_depends {
 
 function get_pkgbuild_version {
     local is_function
-    (. "$1/PKBUILD"; pkgver); is_function=$?
+    (. "$1/PKGBUILD"; pkgver); is_function=$?
 
     if [ $is_function -eq 127 ]; then
-        IFS=' ' read -ra PKGBUILD_VERSION <<< "$(. "$1/PKBUILD"; echo ${pkgver})"
+        IFS=' ' read -ra PKGBUILD_VERSION <<< "$(. "$1/PKGBUILD"; echo ${pkgver})"
         return 0
     fi
 
