@@ -236,7 +236,7 @@ while read -u10 package_name; do
 
     depend=false
 
-    for opt in ${a[@]:2}; do
+    for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
             *) ;;
