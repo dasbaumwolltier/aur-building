@@ -2,11 +2,12 @@
 
 _pkgbase=mautrix-telegram
 pkgname=${_pkgbase}-git
-pkgver=r1275.66917b6
-pkgrel=1
-pkgdesc='A Matrix-Telegram hybrid puppeting/relaybot bridge'
-arch=('any')
-license=('AGPL-3.0')
+pkgver=r61.9f5d965
+pkgrel=4
+pkgdesc="A Matrix-Hangouts puppeting bridge with multi-user support"
+arch=(any)
+conflicts=(mautrix-hangouts)
+license=(AGPLv3)
 depends=(python-sqlalchemy python-alembic python-ruamel-yaml python-magic-ahupp python-commonmark
   python-aiohttp python-mautrix-git python-telethon python-telethon-session-sqlalchemy python-cryptg
   python-cchardet python-aiodns python-brotli python-pillow python-moviepy python-asyncpg python-olm
@@ -20,36 +21,45 @@ optdepends=(
   'python-psycopg2: postgres'
   'python-matrix-nio: end-to-bridge encryption'
 )
-backup=("etc/$_pkgbase/config.yaml")
-install=${pkgname}.install
 url='https://github.com/tulir/mautrix-telegram'
-source=("git+https://github.com/tulir/mautrix-telegram.git")
-sha256sums=('SKIP')
+source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
+      "usr-share.patch"
+	    "README"
+	    "mautrix-hangouts-db-upgrade"
+	    "sysusers-mautrix-hangouts.conf"
+	    "tmpfiles-mautrix-hangouts.conf"
+	    "${_pkgbase}.service")
+sha256sums=('SKIP'
+            'ab5f4cb4d1f8d4c2199dd3f1499712abeed26ac65f3696dec9fb3ed5108da300'
+            '797083657b11728c7e711182f6d161871fc2fcae02ee5e651d7082a5c34625bd'
+            '918d04d07223c83324e18f44fc181abaadc49b747de76a9bcfd48e6bdda6bd05'
+            '36aee765d66afa89778962432660ff49f711bf6982758e0c572d760568555758'
+            'e078d74a16e9cbf8b7f6426274256e72f84ab34ed29c240cce3249985fb566da'
+            '6029e541b610e8fe05463749a9f44490d796e0ccf752ccedbaa6d6430672ca64')
 
 pkgver() {
-  cd "$srcdir/$_pkgbase"
+  cd "$srcdir/${_pkgbase}"
   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
-build() {
-  cd "$srcdir/$_pkgbase"
-  python setup.py build
-}
-
 prepare() {
-  cd "$srcdir/$_pkgbase"
+  cd "$srcdir/${_pkgbase}"
+  git reset --hard
+  echo 'Apply patch to follow fileplacement guidelines per `man heir`'
+  patch < ../usr-share.patch
+  echo 'Applying patch to permit use of newest mautrix version'
   sed -i 's/^mautrix==/mautrix>=/' requirements.txt
 }
 
 package() {
-  cd "$srcdir/$_pkgbase"
-  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
-  install -Dm644 ./mautrix_telegram/example-config.yaml "$pkgdir/etc/$_pkgbase/config.yaml"
-  sed -i "
-    s|filename: ./$_pkgbase.log|filename: /etc/$_pkgbase/${_pkgbase}.log|g;
-    s|database: sqlite:///mautrix-telegram.db|database: sqlite:////etc/mautrix-telegram/mautrix-telegram.db|g" \
-    "$pkgdir/etc/$_pkgbase/config.yaml"
-  install -Dm644 ./alembic.ini "$pkgdir/etc/$_pkgbase/"
-  cp -r ./alembic "$pkgdir/etc/$_pkgbase/alembic"
-}
+  cd "$srcdir/${_pkgbase}"
+  python setup.py install --root="$pkgdir/" --optimize=1
+  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
+  cd "$srcdir/"
+  install -Dm644 "$srcdir"/README -t "$pkgdir"/etc/synapse/mautrix-telegram/
+  install -Dm755 "$srcdir"/mautrix-telegram-db-upgrade -t "$pkgdir"/usr/bin/
+  install -Dm644 ${_pkgbase}.service -t  "${pkgdir}"/usr/lib/systemd/system/
+  install -Dm644 "$srcdir"/sysusers-mautrix-hangouts.conf "$pkgdir"/usr/lib/sysusers.d/mautrix-telegram.conf
+  install -Dm644 "$srcdir"/tmpfiles-mautrix-hangouts.conf "$pkgdir"/usr/lib/tmpfiles.d/mautrix-telegram.conf
+}

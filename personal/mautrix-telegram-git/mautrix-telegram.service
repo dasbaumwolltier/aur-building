@@ -1,0 +1,17 @@
+# /usr/lib/systemd/system/matrix-puppet-telegram@.service
+# /etc/systemd/system/telegram-puppet.service
+[Unit]
+Description=Telegram Matrix Puppet
+
+[Service]
+Type=simple
+User=mautrix-telegram
+Group=mautrix-telegram
+WorkingDirectory=/var/lib/mautrix-telegram/
+ExecStart=/usr/bin/mautrix-telegram -c /etc/synapse/mautrix-telegram/config.yaml \
+          -r /etc/synapse/mautrix-telegram/registration.yaml
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
