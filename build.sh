@@ -257,7 +257,7 @@ while read -u10 package_name; do
     fi
 
     if [ $res -eq 255 ] || [ $res -eq 0 ]; then
-        pacman -U --noconfirm "${splitted[1]}*.pkg.tar.$COMPRESSION" && \
+        sudo pacman -U --noconfirm "${splitted[1]}*.pkg.tar.$COMPRESSION" && \
         cp ${splitted[1]}*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
         cp ${splitted[1]}*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
 
