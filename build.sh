@@ -234,7 +234,7 @@ while read -u10 package_name; do
 
     IFS=' ' read -ra splitted <<< "$package_name"
 
-    local depend=false
+    depend=false
 
     for opt in ${a[@]:2}; do
         case "$opt" in
