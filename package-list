@@ -12,7 +12,7 @@ aur bitwarden-bin
 
 aur chatty
 
-aur python-magic-ahupp
+aur python-magic-ahupp depend
 aur dotdrop
 
 aur dict-freedict-deu-swe-bin
@@ -26,14 +26,14 @@ aur git-credential-kwallet-git
 
 aur git-interactive-rebase-tool
 
-aur python-sentry_sdk
+aur python-sentry_sdk depend
 aur gns3-gui
 
 aur gns3-server
 
 aur grass
 
-aur nvm
+aur nvm depend
 aur insomnia
 
 aur jetbrains-toolbox
@@ -74,8 +74,8 @@ aur python38
 
 aur rekcod
 
-aur mbuffer
-aur perl-config-inifiles
+aur mbuffer depend
+aur perl-config-inifiles depend
 aur sanoid
 
 aur scrcpy
@@ -84,56 +84,56 @@ aur searx
 
 aur teams
 
-aur perl-authen-pam
-aur perl-encode-detect
+aur perl-authen-pam depend
+aur perl-encode-detect depend
 aur webmin
 
 aur wiki-js
 
-aur pygtk
+aur pygtk depend
 aur zenmap
 
 aur bloomrpc
 
 # Mautrix
 
-aur python-mautrix-git
+aur python-mautrix-git depend
 
-aur python-mechanicalsoup
-aur python-readlike
-aur python-reparser
+aur python-mechanicalsoup depend
+aur python-readlike depend
+aur python-reparser depend
 aur hangups
 
 personal mautrix-hangouts-git
 
-aur python-cryptg
-aur signald-git
+aur python-cryptg depend
+aur signald-git depend
 personal mautrix-signal-git
 
 aur mautrix-whatsapp-git
 
-aur python-aenum
-aur python-hbmqtt-tulir-git
-aur python-fbchat-asyncio-git
+aur python-aenum depend
+aur python-hbmqtt-tulir-git depend
+aur python-fbchat-asyncio-git depend
 
 personal mautrix-facebook-git
 
-aur python-imageio-ffmpeg
-aur python-imageio
-aur python-proglog
-aur python-telethon
-aur python-telethon-session-sqlalchemy
+aur python-imageio-ffmpeg depend
+aur python-imageio depend
+aur python-proglog depend
+aur python-telethon depend
+aur python-telethon-session-sqlalchemy depend
 
-aur brunsli
-aur charls
-aur libdeflate
-aur python-imread
-aur python-tifffile
+aur brunsli depend
+aur charls depend
+aur libdeflate depend
+aur python-imread depend
+aur python-tifffile depend
 
-aur python-pywavelets
-aur python-scikit-image
+aur python-pywavelets depend
+aur python-scikit-image depend
 
-aur python-moviepy
+aur python-moviepy depend
 
 personal mautrix-telegram-git
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DEBUG=1
 
@@ -234,6 +234,15 @@ while read -u10 package_name; do
 
     IFS=' ' read -ra splitted <<< "$package_name"
 
+    local depend=false
+
+    for opt in ${a[@]:2}; do
+        case "$opt" in
+            depend) depend=true ;;
+            *) ;;
+        esac
+    done
+
     get_version "${splitted[1]}"
 
     cd "$BUILD_DIR"
@@ -257,7 +266,10 @@ while read -u10 package_name; do
     fi
 
     if [ $res -eq 255 ] || [ $res -eq 0 ]; then
-        sudo pacman -U --noconfirm ${splitted[1]}*.pkg.tar.$COMPRESSION && \
+        if $depend; then
+            sudo pacman -U --noconfirm ${splitted[1]}*.pkg.tar.$COMPRESSION
+        fi
+
         cp ${splitted[1]}*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
         cp ${splitted[1]}*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
 
@@ -277,7 +289,6 @@ while read -u10 package_name; do
     CUR_DIR="$(pwd)"
 
     call_makepkg
-    # cp $BUILD_DIR/${splitted[1]}/${splitted[1]}*.pkg.tar.* "$BUILD_DIR/packages/"
 
     for f in $CUR_DIR/${splitted[1]}*.pkg.tar.$COMPRESSION; do
         sudo pacman -U --noconfirm "$f" && \
