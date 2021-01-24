@@ -1,15 +1,13 @@
-diff --git a/setup.py b/setup.py
-index 149b5a0..06ae8ea 100644
---- a/setup.py
-+++ b/setup.py
-@@ -70,8 +70,8 @@ setuptools.setup(
+--- setup.py    2021-01-24 11:13:32.666611644 +0100
++++ setup-patch.py      2021-01-24 11:14:20.306610198 +0100
+@@ -67,8 +67,8 @@ setuptools.setup(
          "example-config.yaml"
      ]},
      data_files=[
--        (".", ["alembic.ini"]),
+-        (".", ["alembic.ini", "mautrix_hangouts/example-config.yaml"]),
 -        ("alembic", ["alembic/env.py"]),
 -        ("alembic/versions", glob.glob("alembic/versions/*.py"))
-+        ("./share/mautrix-hangouts", ["alembic.ini"]),
++        ("./share/mautrix-hangouts", ["alembic.ini", "mautrix_hangouts/example-config.yaml"]),
 +        ("./share/mautrix-hangouts/alembic", ["alembic/env.py"]),
 +        ("./share/mautrix-hangouts/alembic/versions", glob.glob("alembic/versions/*.py"))
      ],
