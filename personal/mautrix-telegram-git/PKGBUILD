@@ -25,9 +25,9 @@ url='https://github.com/tulir/mautrix-telegram'
 source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
       "usr-share.patch"
 	    "README"
-	    "mautrix-hangouts-db-upgrade"
-	    "sysusers-mautrix-hangouts.conf"
-	    "tmpfiles-mautrix-hangouts.conf"
+	    "mautrix-${_pkgbase}-db-upgrade"
+	    "sysusers-mautrix-${_pkgbase}.conf"
+	    "tmpfiles-mautrix-${_pkgbase}.conf"
 	    "${_pkgbase}.service")
 sha256sums=('SKIP'
             'ab5f4cb4d1f8d4c2199dd3f1499712abeed26ac65f3696dec9fb3ed5108da300'
@@ -60,6 +60,6 @@ package() {
   install -Dm644 "$srcdir"/README -t "$pkgdir"/etc/synapse/mautrix-telegram/
   install -Dm755 "$srcdir"/mautrix-telegram-db-upgrade -t "$pkgdir"/usr/bin/
   install -Dm644 ${_pkgbase}.service -t  "${pkgdir}"/usr/lib/systemd/system/
-  install -Dm644 "$srcdir"/sysusers-mautrix-hangouts.conf "$pkgdir"/usr/lib/sysusers.d/mautrix-telegram.conf
-  install -Dm644 "$srcdir"/tmpfiles-mautrix-hangouts.conf "$pkgdir"/usr/lib/tmpfiles.d/mautrix-telegram.conf
+  install -Dm644 "$srcdir"/sysusers-mautrix-telegram.conf "$pkgdir"/usr/lib/sysusers.d/mautrix-telegram.conf
+  install -Dm644 "$srcdir"/tmpfiles-mautrix-telegram.conf "$pkgdir"/usr/lib/tmpfiles.d/mautrix-telegram.conf
 }
