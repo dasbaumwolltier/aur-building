@@ -1,15 +1,13 @@
-diff --git a/setup.py b/setup.py
-index 149b5a0..06ae8ea 100644
---- a/setup.py
-+++ b/setup.py
+--- setup.py    2021-01-24 11:10:32.986617098 +0100
++++ setup-patch.py      2021-01-24 11:11:18.936615703 +0100
 @@ -70,8 +70,8 @@ setuptools.setup(
-         "example-config.yaml"
+         "example-config.yaml",
      ]},
      data_files=[
--        (".", ["alembic.ini"]),
+-        (".", ["alembic.ini", "mautrix_telegram/example-config.yaml"]),
 -        ("alembic", ["alembic/env.py"]),
 -        ("alembic/versions", glob.glob("alembic/versions/*.py"))
-+        ("./share/mautrix-telegram", ["alembic.ini"]),
++        ("./share/mautrix-telegram", ["alembic.ini", "mautrix_telegram/example-config.yaml"]),
 +        ("./share/mautrix-telegram/alembic", ["alembic/env.py"]),
 +        ("./share/mautrix-telegram/alembic/versions", glob.glob("alembic/versions/*.py"))
      ],
