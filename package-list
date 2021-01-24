@@ -102,7 +102,7 @@ aur python-mautrix-git depend
 aur python-mechanicalsoup depend
 aur python-readlike depend
 aur python-reparser depend
-aur hangups
+aur hangups depend
 
 personal mautrix-hangouts-git
 
