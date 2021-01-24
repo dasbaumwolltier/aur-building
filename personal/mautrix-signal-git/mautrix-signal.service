@@ -1,0 +1,17 @@
+# /usr/lib/systemd/system/matrix-puppet-signal@.service
+# /etc/systemd/system/signal-puppet.service
+[Unit]
+Description=Signal Matrix Puppet
+
+[Service]
+Type=simple
+User=mautrix-signal
+Group=mautrix-signal
+WorkingDirectory=/var/lib/mautrix-signal/
+ExecStart=/usr/bin/mautrix-signal -c /etc/synapse/mautrix-signal/config.yaml \
+          -r /etc/synapse/mautrix-signal/registration.yaml
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

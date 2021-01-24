@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
+cd /var/lib/mautrix-signal
+
+if [[ ! -e /var/lib/mautrix-signal/alembic ]]; then
+  ln -s /usr/share/mautrix-signal/alembic ./
+fi
+if [[ ! -e /var/lib/mautrix-signal/alembic.ini ]]; then
+  ln -s /usr/share/mautrix-signal/alembic.ini ./
+fi
+sudo -u mautrix-signal alembic -x config=/etc/synapse/mautrix-signal/config.yaml upgrade head
