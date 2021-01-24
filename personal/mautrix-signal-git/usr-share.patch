@@ -1,16 +1,10 @@
-diff --git a/setup.py b/setup.py
-index 149b5a0..06ae8ea 100644
---- a/setup.py
-+++ b/setup.py
-@@ -70,8 +70,8 @@ setuptools.setup(
-         "example-config.yaml"
+--- setup.py    2021-01-24 11:05:33.986626174 +0100
++++ setup-patch.py      2021-01-24 11:07:25.269956129 +0100
+@@ -65,6 +65,6 @@ setuptools.setup(
+         "example-config.yaml",
      ]},
      data_files=[
--        (".", ["alembic.ini"]),
--        ("alembic", ["alembic/env.py"]),
--        ("alembic/versions", glob.glob("alembic/versions/*.py"))
-+        ("./share/mautrix-signal", ["alembic.ini"]),
-+        ("./share/mautrix-signal/alembic", ["alembic/env.py"]),
-+        ("./share/mautrix-signal/alembic/versions", glob.glob("alembic/versions/*.py"))
+-        (".", ["mautrix_signal/example-config.yaml"]),
++        ("./share/mautrix-signal/", ["mautrix_signal/example-config.yaml"]),
      ],
  )
