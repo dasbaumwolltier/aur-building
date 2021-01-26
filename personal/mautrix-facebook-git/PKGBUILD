@@ -35,7 +35,7 @@ source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
 	    "tmpfiles-mautrix-facebook.conf"
 	    "${_pkgbase}.service")
 sha256sums=('SKIP'
-            '58095b598d8c6a0a475f5668fa4a33e670593648c2dd15a9830fb048b40bf792'
+            '244944a8662fb3bd26b6003d781554656d729937b58c44367784b1f9df82160b'
             '881c2f6a8c4c74be6277bc0ec689b17623bbe08939bde9187ab04ed71e55c447'
             '793016de273d6dc0a2fdfd1090942aa2ec3cc75c0cad333ed231bb8561fddfd0'
             'd981fb6fef944b83a4089683075ab2ae1cf095a6814e4d3bdce500d3309cb617'

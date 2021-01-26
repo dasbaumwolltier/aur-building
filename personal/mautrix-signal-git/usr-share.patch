@@ -5,7 +5,7 @@
          "example-config.yaml",
      ]},
 +    entry_points = {
-+        'console_scripts': ['mautrix-signal=mautrix_signal']
++        'console_scripts': ['mautrix-signal=mautrix_signal.__main__:main']
 +    },
      data_files=[
 -        (".", ["mautrix_signal/example-config.yaml"]),

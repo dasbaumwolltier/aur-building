@@ -5,7 +5,7 @@
          ],
      },
 +    entry_points = {
-+        'console_scripts': ['mautrix-facebook=mautrix_facebook']
++        'console_scripts': ['mautrix-facebook=mautrix_facebook.__main__:main']
 +    },
      data_files=[
 -        (".", ["alembic.ini", "mautrix_facebook/example-config.yaml"]),

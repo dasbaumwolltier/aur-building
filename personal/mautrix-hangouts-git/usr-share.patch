@@ -5,7 +5,7 @@
          "example-config.yaml"
      ]},
 +    entry_points = {
-+        'console_scripts': ['mautrix-hangouts=mautrix_hangouts']
++        'console_scripts': ['mautrix-hangouts=mautrix_hangouts.__main__:main']
 +    },
      data_files=[
 -        (".", ["alembic.ini", "mautrix_hangouts/example-config.yaml"]),

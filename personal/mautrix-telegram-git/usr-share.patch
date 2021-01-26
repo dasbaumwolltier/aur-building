@@ -5,7 +5,7 @@
          "example-config.yaml",
      ]},
 +    entry_points = {
-+        'console_scripts': ['mautrix-telegram=mautrix_telegram']
++        'console_scripts': ['mautrix-telegram=mautrix_telegram.__main__:main']
 +    },
      data_files=[
 -        (".", ["alembic.ini", "mautrix_telegram/example-config.yaml"]),

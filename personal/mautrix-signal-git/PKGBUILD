@@ -21,7 +21,7 @@ source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
         "tmpfiles-mautrix-signal.conf"
         "${_pkgbase}.service")
 sha256sums=('SKIP'
-            'e9ddfad2c4eb3b4a048a156fe337204b7ddbde71bf4d4f863311a42375c686b7'
+            'f1216c42b151e7598384bb42843fb8544ba81bc87b7fcfc58d55479099eedcc9'
             '797083657b11728c7e711182f6d161871fc2fcae02ee5e651d7082a5c34625bd'
             '53ba8d4fcadd54d96bc2a69a8fae5e3271c6eaed4cb2f6889ba5a477dc48b4bb'
             '0b0abf5194d28fc00642fb46a478470d2f6c1f73c0d5d9b2ea8cc383e45e15b9'
