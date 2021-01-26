@@ -3,14 +3,14 @@
 _pkgbase=mautrix-signal
 pkgname=${_pkgbase}-git
 pkgver=r96.3852c13
-pkgrel=2
+pkgrel=3
 pkgdesc='mautrix-signal puppeting/relaybot bridge'
 arch=('any')
 license=(AGPLv3)
 depends=(python-sqlalchemy python-ruamel-yaml python-magic-ahupp python-commonmark
   python-aiohttp python-mautrix-git python-cryptg python-cchardet python-aiodns 
   python-brotli python-pillow 'python-asyncpg>=0.21' python-olm python-phonenumbers
-  python-pycryptodome python-unpaddedbase64 python-matrix-nio signald-git)
+  python-pycryptodome python-unpaddedbase64 python-matrix-nio signald-git python-qrcode)
 makedepends=('git' 'python-pip')
 url='https://github.com/tulir/mautrix-signal'
 source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
