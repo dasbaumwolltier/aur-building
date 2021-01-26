@@ -11,7 +11,7 @@ depends=(python-sqlalchemy python-ruamel-yaml python-magic-ahupp python-commonma
   python-aiohttp python-mautrix-git python-cryptg python-cchardet python-aiodns 
   python-brotli python-pillow 'python-asyncpg>=0.21' python-olm python-phonenumbers
   python-pycryptodome python-unpaddedbase64 python-matrix-nio signald-git)
-makedepends=('git')
+makedepends=('git' 'python-pip')
 url='https://github.com/tulir/mautrix-signal'
 source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
         "usr-share.patch"

@@ -20,7 +20,7 @@ depends=(python
 	     hangups
 	     sudo
 	    )
-makedepends=(git)
+makedepends=(git 'python-pip')
 optdepends=()
 source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
 	    "usr-share.patch"

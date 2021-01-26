@@ -12,7 +12,7 @@ depends=(python-sqlalchemy python-alembic python-ruamel-yaml python-magic-ahupp 
   python-aiohttp python-mautrix-git python-telethon python-telethon-session-sqlalchemy python-cryptg
   python-cchardet python-aiodns python-brotli python-pillow python-moviepy python-asyncpg python-olm
   python-pycryptodome python-unpaddedbase64)
-makedepends=('git')
+makedepends=('git' 'python-pip')
 optdepends=(
   'python-cryptg: faster crypto (native instead of pure python)'
   'python-pillow: webp <-> png conversion for stickers'
