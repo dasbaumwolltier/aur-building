@@ -30,7 +30,7 @@ source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
 	    "tmpfiles-mautrix-hangouts.conf"
 	    "${_pkgbase}.service")
 sha256sums=('SKIP'
-            '13f10d277bedc3130e40487c9008d7cf749ac9266167f59db4f3c70a37b682af'
+            '85e4d615ba8d618568a2aee63e41539cc7708158ad09e4c20617a506cc0d1c1b'
             '797083657b11728c7e711182f6d161871fc2fcae02ee5e651d7082a5c34625bd'
             '918d04d07223c83324e18f44fc181abaadc49b747de76a9bcfd48e6bdda6bd05'
             '36aee765d66afa89778962432660ff49f711bf6982758e0c572d760568555758'

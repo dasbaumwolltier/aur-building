@@ -1,8 +1,12 @@
---- setup.py    2021-01-24 11:13:32.666611644 +0100
-+++ setup-patch.py      2021-01-24 11:14:20.306610198 +0100
-@@ -67,8 +67,8 @@ setuptools.setup(
+--- setup.py    2021-01-26 17:10:54.293464655 +0100
++++ setup-patch.py      2021-01-26 17:11:18.326798109 +0100
+@@ -66,9 +66,12 @@ setuptools.setup(
+         "web/static/*.png", "web/static/*.css", "web/static/*.html", "web/static/*.js",
          "example-config.yaml"
      ]},
++    entry_points = {
++        'console_scripts': ['mautrix-hangouts=mautrix_hangouts']
++    },
      data_files=[
 -        (".", ["alembic.ini", "mautrix_hangouts/example-config.yaml"]),
 -        ("alembic", ["alembic/env.py"]),
