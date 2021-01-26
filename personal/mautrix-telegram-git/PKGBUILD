@@ -30,7 +30,7 @@ source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
 	    "tmpfiles-mautrix-telegram.conf"
 	    "${_pkgbase}.service")
 sha256sums=('SKIP'
-            'c0629c19df967058ebbeeaf7d7b41564b27ce19d0929a07c2da65665c9d29830'
+            '31156b6864fb3a1548fb621c6fc4929e38a27dc3ec6083eb2027411770254789'
             '797083657b11728c7e711182f6d161871fc2fcae02ee5e651d7082a5c34625bd'
             'a15027fe28e5ea35a769fe54acc842c2b273fdd954585c7a2028f9c9f19006ca'
             '1b9a53babb52689b7670432b70a60871b338f7e4a8adc240b067913d919bb1d9'

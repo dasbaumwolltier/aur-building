@@ -1,8 +1,12 @@
---- setup.py    2021-01-24 11:10:32.986617098 +0100
-+++ setup-patch.py      2021-01-24 11:11:18.936615703 +0100
-@@ -70,8 +70,8 @@ setuptools.setup(
+--- setup.py    2021-01-26 17:14:05.400132400 +0100
++++ setup-patch.py      2021-01-26 17:13:32.970132230 +0100
+@@ -69,9 +69,12 @@ setuptools.setup(
+         "web/public/*.mako", "web/public/*.png", "web/public/*.css",
          "example-config.yaml",
      ]},
++    entry_points = {
++        'console_scripts': ['mautrix-telegram=mautrix_telegram']
++    },
      data_files=[
 -        (".", ["alembic.ini", "mautrix_telegram/example-config.yaml"]),
 -        ("alembic", ["alembic/env.py"]),
