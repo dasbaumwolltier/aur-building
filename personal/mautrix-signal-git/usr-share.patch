@@ -1,8 +1,12 @@
---- setup.py    2021-01-24 11:05:33.986626174 +0100
-+++ setup-patch.py      2021-01-24 11:07:25.269956129 +0100
-@@ -65,6 +65,6 @@ setuptools.setup(
+--- setup.py    2021-01-26 17:06:07.700129883 +0100
++++ setup-patch.py      2021-01-26 17:07:56.696797096 +0100
+@@ -64,7 +64,10 @@ setuptools.setup(
+     package_data={"mautrix_signal": [
          "example-config.yaml",
      ]},
++    entry_points = {
++        'console_scripts': ['mautrix-signal=mautrix_signal']
++    },
      data_files=[
 -        (".", ["mautrix_signal/example-config.yaml"]),
 +        ("./share/mautrix-signal/", ["mautrix_signal/example-config.yaml"]),

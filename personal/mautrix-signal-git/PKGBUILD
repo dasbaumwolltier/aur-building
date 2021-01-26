@@ -2,7 +2,7 @@
 
 _pkgbase=mautrix-signal
 pkgname=${_pkgbase}-git
-pkgver=r94.0aa066b
+pkgver=r96.3852c13
 pkgrel=1
 pkgdesc='mautrix-signal puppeting/relaybot bridge'
 arch=('any')
@@ -21,7 +21,7 @@ source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
         "tmpfiles-mautrix-signal.conf"
         "${_pkgbase}.service")
 sha256sums=('SKIP'
-            'c33794f3b94282771c69a914d116b9696b7356a80db64012c34bf251fb054f4b'
+            'e9ddfad2c4eb3b4a048a156fe337204b7ddbde71bf4d4f863311a42375c686b7'
             '797083657b11728c7e711182f6d161871fc2fcae02ee5e651d7082a5c34625bd'
             '53ba8d4fcadd54d96bc2a69a8fae5e3271c6eaed4cb2f6889ba5a477dc48b4bb'
             '0b0abf5194d28fc00642fb46a478470d2f6c1f73c0d5d9b2ea8cc383e45e15b9'
