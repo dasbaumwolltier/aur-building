@@ -2,6 +2,8 @@ aur yay
 
 aur nodejs depend
 
+aur albert-minimal
+
 aur apache-tools
 
 aur angular-cli
@@ -92,6 +94,12 @@ aur wiki-js
 
 aur pygtk depend
 aur zenmap
+
+# ZSH
+aur oh-my-zsh-git
+aur zsh-abbr
+aur zsh-theme-powerlevel10k-git
+aur ttf-meslo-nerd-font-powerlevel10k
 
 aur bloomrpc
 
