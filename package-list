@@ -94,6 +94,7 @@ aur webmin
 
 aur wiki-js
 
+aur python2-gobject2 depend
 aur pygtk depend
 aur zenmap
 
