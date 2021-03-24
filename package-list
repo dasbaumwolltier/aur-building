@@ -10,6 +10,9 @@ aur angular-cli
 
 aur aws-cli-v2-bin
 
+aur electron9-bin depend
+aur balena-etcher
+
 aur bitwarden-bin
 
 aur chatty
