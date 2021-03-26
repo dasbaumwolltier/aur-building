@@ -1,0 +1,18 @@
+pkgbase = zsh-meta-package
+	pkgdesc = Bundle the zsh dependencies for my personal zsh experience
+	pkgver = 1.0
+	pkgrel = 1
+	arch = any
+	license = MIT
+	depends = zsh
+	depends = zsh-autosuggestions
+	depends = zsh-syntax-highlighting
+	depends = oh-my-zsh-git
+	depends = zsh-abbr
+	depends = zsh-theme-powerlevel10k-git
+	depends = ttf-meslo-nerd-font-powerlevel10k
+	depends = zsh-z-git
+	depends = k
+
+pkgname = zsh-meta-package
+

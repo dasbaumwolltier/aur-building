@@ -1,0 +1,19 @@
+# Maintainer: Gabriel Guldner <gabriel at guldner . eu >
+
+pkgname=zsh-meta-package
+pkgver=1.0
+pkgrel=1
+pkgdesc="Bundle the zsh dependencies for my personal zsh experience"
+arch=(any)
+license=(MIT)
+depends=(
+    zsh 
+    zsh-autosuggestions 
+    zsh-syntax-highlighting 
+    oh-my-zsh-git 
+    zsh-abbr 
+    zsh-theme-powerlevel10k-git 
+    ttf-meslo-nerd-font-powerlevel10k 
+    zsh-z-git 
+    k
+)
