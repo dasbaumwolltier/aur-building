@@ -1,0 +1,22 @@
+pkgbase = python-transwhat-git
+	pkgdesc = A gateway between the XMPP and the WhatsApp IM networks
+	pkgver = 0.2.2
+	pkgrel = 1
+	epoch = 1
+	url = https://github.com/stv0g/transwhat
+	arch = any
+	license = GPL
+	makedepends = python-setuptools
+	depends = python
+	depends = python-protobuf
+	depends = python-pillow
+	depends = python-dateutil
+	depends = python-yowsup>=3
+	depends = spectrum2
+	options = !strip
+	options = !emptydirs
+	source = https://github.com/stv0g/transwhat/
+	md5sums = SKIP
+
+pkgname = python-transwhat-git
+
