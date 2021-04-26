@@ -1,28 +1,27 @@
-pkgbase = python-transwhat-git
+pkgbase = python2-transwhat-git
 	pkgdesc = A gateway between the XMPP and the WhatsApp IM networks
-	pkgver = v0.2.2.r54.gd022243
-	pkgrel = 2
+	pkgver = v0.2.2.r35.g35afbe5
+	pkgrel = 1
 	epoch = 1
 	url = https://github.com/stv0g/transwhat
 	arch = any
 	license = GPL
 	makedepends = git
-	makedepends = python-setuptools
-	depends = python
-	depends = python-protobuf
-	depends = python-pillow
-	depends = python-dateutil
-	depends = python-yowsup>=3
+	makedepends = python2-setuptools
+	depends = python2
+	depends = python2-protobuf
+	depends = python2-dateutil
+	depends = python-yowsup>=2
 	depends = spectrum2
-	provides = python-transwhat
-	provides = python-spectrum2
-	conflicts = python-transwhat
+	provides = python2-transwhat
+	provides = python2-pillow
+	conflicts = python2-transwhat
 	options = !strip
 	options = !emptydirs
 	source = git+https://github.com/stv0g/transwhat/
-	source = https://files.pythonhosted.org/packages/d0/2b/e8d3f1a7baa3707ce0d1b67c6caae874c45f3515c830ed85d5464b758dfc/pyspectrum2-0.2.0.tar.gz
+	source = git+https://github.com/python-pillow/Pillow.git
 	md5sums = SKIP
-	md5sums = 361997189f2a206776612e3238788363
+	md5sums = SKIP
 
-pkgname = python-transwhat-git
+pkgname = python2-transwhat-git
 
