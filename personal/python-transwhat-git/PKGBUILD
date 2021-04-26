@@ -5,6 +5,8 @@ pkgrel=1
 epoch=1
 pkgdesc="A gateway between the XMPP and the WhatsApp IM networks"
 arch=('any')
+conflicts=('python-transwhat')
+provides=('python-transwhat')
 url="https://github.com/stv0g/transwhat"
 license=('GPL')
 depends=('python' 'python-protobuf' 'python-pillow' 'python-dateutil' 'python-yowsup>=3' 'spectrum2')
