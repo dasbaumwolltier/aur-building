@@ -122,7 +122,7 @@ aur python-dissononce-git depend
 aur python-consonance-git depend
 aur python-yowsup depend
 
-personal python-transwhat
+personal python-transwhat-git
 
 # Mautrix
 
