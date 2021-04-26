@@ -112,6 +112,19 @@ personal zsh-meta-package
 
 aur bloomrpc
 
+# XMPP
+aur gconf depend
+aur libcommuni depend
+aur spectrum2 depend
+
+aur python-transitions depend
+aur python-dissononce-git depend
+aur python-consonance-git depend
+aur python-yowsup depend
+aur python2-beautifulsoup3 depend
+aur python-e4u depend
+aur python-transwhat
+
 # Mautrix
 
 aur python-mautrix-git depend
