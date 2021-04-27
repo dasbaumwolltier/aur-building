@@ -240,7 +240,7 @@ while read -u10 package_name; do
     for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
-            pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' '))
+            pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' ')) ;;
             *) ;;
         esac
     done
