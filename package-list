@@ -125,6 +125,7 @@ aur python-dissononce-git depend
 aur python-consonance-git depend
 aur python-yowsup depend
 
+aur python2-protobuf depend
 personal python-transwhat-git
 
 # Mautrix
