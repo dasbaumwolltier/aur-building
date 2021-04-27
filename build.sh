@@ -235,10 +235,12 @@ while read -u10 package_name; do
     IFS=' ' read -ra splitted <<< "$package_name"
 
     depend=false
+    pkgnames=(${splitted[1]})
 
     for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
+            pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' '))
             *) ;;
         esac
     done
@@ -266,13 +268,14 @@ while read -u10 package_name; do
     fi
 
     if [ $res -eq 255 ] || [ $res -eq 0 ]; then
-        if $depend; then
-            sudo pacman -U --noconfirm ${splitted[1]}*.pkg.tar.$COMPRESSION
-        fi
+        for pkgname in $pkgnames; do
+            if $depend; then
+                sudo pacman -U --noconfirm $pkgname*.pkg.tar.$COMPRESSION
+            fi
 
-        cp ${splitted[1]}*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
-        cp ${splitted[1]}*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
-
+            cp $pkgname*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
+            cp $pkgname*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
+        done
         continue
     fi
 
@@ -290,10 +293,12 @@ while read -u10 package_name; do
 
     call_makepkg
 
-    for f in $CUR_DIR/${splitted[1]}*.pkg.tar.$COMPRESSION; do
-        sudo pacman -U --noconfirm "$f" && \
-        cp "$f" "$BUILD_DIR/packages/" && \
-        cp "$f.sig" "$BUILD_DIR/packages/"
+    for pkgname in $pkgnames; do
+        for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do
+            sudo pacman -U --noconfirm "$f" && \
+            cp "$f" "$BUILD_DIR/packages/" && \
+            cp "$f.sig" "$BUILD_DIR/packages/"
+        done
     done
 
     cd ../..
