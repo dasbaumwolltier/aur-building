@@ -8,7 +8,7 @@ conflicts=('python2-transwhat')
 provides=('python2-transwhat' 'python2-pillow')
 url="https://github.com/stv0g/transwhat"
 license=('GPL')
-depends=('python2' 'python2-protobuf' 'python2-dateutil' 'python-yowsup>=2' 'spectrum2')
+depends=('python2' 'python2-protobuf' 'python2-dateutil' 'python2-e4u' 'python-yowsup>=2' 'spectrum2')
 makedepends=('git' 'python2-setuptools')
 options=('!strip' '!emptydirs')
 source=('git+https://github.com/stv0g/transwhat/'
