@@ -260,40 +260,39 @@ while read -u10 package_name; do
         cd "personal"
     fi
 
-    cd "${splitted[1]}"
+    for pkgname in $pkgnames; do
+        cd "$pkgname"
 
-    if [ -n "$GET_VERSION" ]; then
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
-    fi
+        if [ -n "$GET_VERSION" ]; then
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
+        fi
 
-    if [ $res -eq 255 ] || [ $res -eq 0 ]; then
-        for pkgname in $pkgnames; do
+        if [ $res -eq 255 ] || [ $res -eq 0 ]; then
             if $depend; then
                 sudo pacman -U --noconfirm $pkgname*.pkg.tar.$COMPRESSION
             fi
 
             cp $pkgname*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
             cp $pkgname*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
-        done
-        continue
-    fi
+            
+            continue
+        fi
 
-    if [ ${#MAKE_DEPENDS[@]} -ne 0 ]; then
-        echo "Installing Make Dependencies"
-        install_packages ${MAKE_DEPENDS[@]}
-    fi
+        if [ ${#MAKE_DEPENDS[@]} -ne 0 ]; then
+            echo "Installing Make Dependencies"
+            install_packages ${MAKE_DEPENDS[@]}
+        fi
 
-    if [ ${#DEPENDS[@]} -ne 0 ]; then
-        echo "Installing Dependencies"
-        install_packages ${DEPENDS[@]}
-    fi
+        if [ ${#DEPENDS[@]} -ne 0 ]; then
+            echo "Installing Dependencies"
+            install_packages ${DEPENDS[@]}
+        fi
 
-    CUR_DIR="$(pwd)"
+        CUR_DIR="$(pwd)"
 
-    call_makepkg
+        call_makepkg
 
-    for pkgname in $pkgnames; do
         for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do
             sudo pacman -U --noconfirm "$f" && \
             cp "$f" "$BUILD_DIR/packages/" && \
