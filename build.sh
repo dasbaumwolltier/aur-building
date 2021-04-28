@@ -286,7 +286,7 @@ while read -u10 package_name; do
         cd "personal"
     fi
 
-    cd "${splitted[0]}"
+    cd "${splitted[1]}"
     if try_download ${pkgnames[@]} $res $depend; then
         continue
     fi
