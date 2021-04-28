@@ -8,35 +8,24 @@ conflicts=('python2-transwhat')
 provides=('python2-transwhat' 'python2-pillow')
 url="https://github.com/stv0g/transwhat"
 license=('GPL')
-depends=('python2' 'python2-protobuf' 'python2-dateutil' 'python2-e4u' 'python-yowsup>=2' 'spectrum2')
+depends=('python2' 'python2-pillow' 'python2-protobuf' 'python2-dateutil' 'python2-e4u' 'python2-yowsup>=2' 'spectrum2')
 makedepends=('git' 'python2-setuptools')
 options=('!strip' '!emptydirs')
-source=('git+https://github.com/stv0g/transwhat/'
-        'git+https://github.com/python-pillow/Pillow.git'
-)
-md5sums=('SKIP'
-         'SKIP')
+source=('git+https://github.com/stv0g/transwhat.git')
+md5sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/$_pkgname"
   git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-prepare() {
-  cd "$srcdir/Pillow"
-  git checkout 6.2.2
-}
-
 package() {
   cd "$srcdir/$_pkgname"
   python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
 
-  install -Dm644 contrib/spectrum@.service "$pkgdir(usr/lib/systemd/system"
+  install -Dm644 contrib/spectrum@.service "$pkgdir/usr/lib/systemd/system/spectrum@.service"
   #find etc/ -type f -exec sh -c "install -Dm644 {} $pkgdir/usr/share/transwhat/example/{}" \;
   #find "$pkgdir" -type f -exec sed -i 's#/usr/bin/python2#/usr/bin/python#g' {} \;
-
-  cd "$srcdir/Pillow"
-  python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
 }
 
 # disabled for now

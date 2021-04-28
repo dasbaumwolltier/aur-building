@@ -1,0 +1,28 @@
+pkgbase = python2-pillow
+	pkgdesc = Python Imaging Library (PIL) fork.
+	pkgver = 6.2.2
+	pkgrel = 2
+	url = https://python-pillow.github.io/
+	arch = x86_64
+	license = BSD
+	checkdepends = python2-pytest
+	makedepends = python2-setuptools
+	makedepends = libwebp
+	makedepends = tk
+	depends = python2
+	depends = freetype2
+	depends = lcms2
+	depends = libraqm
+	depends = libtiff
+	depends = openjpeg2
+	depends = libimagequant
+	depends = libxcb
+	optdepends = libwebp: for webp images
+	optdepends = tk: for the ImageTK module
+	optdepends = python2-olefile: OLE2 file support
+	optdepends = python2-pyqt5: for the ImageQt module
+	source = https://files.pythonhosted.org/packages/source/P/Pillow/Pillow-6.2.2.tar.gz
+	md5sums = 46cad14f0044a5ac4b2d801271528893
+
+pkgname = python2-pillow
+

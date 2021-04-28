@@ -122,10 +122,16 @@ aur gconf depend
 aur libcommuni depend
 aur spectrum2 depend
 
-aur python-transitions depend
-aur python-dissononce-git depend
-aur python-consonance-git depend
-aur python-yowsup depend
+personal python2-transitions depend
+personal python2-dissononce-git depend
+
+aur python2-axolotl-curve25519-git depend
+personal python2-consonance-git depend
+
+aur python2-axolotl-git depend
+personal python2-pillow depend
+aur python2-argparse depend
+personal python2-yowsup depend
 
 aur python2-beautifulsoup3 depend
 aur python-e4u depend pkgnames=python-e4u,python2-e4u

@@ -1,0 +1,14 @@
+pkgbase = python2-transitions
+	pkgdesc = A lightweight, object-oriented finite state machine implementation in Python
+	pkgver = 0.8.8
+	pkgrel = 1
+	url = http://github.com/tyarkoni/transitions
+	arch = any
+	license = MIT
+	makedepends = python2-setuptools
+	depends = python2-six
+	source = https://github.com/tyarkoni/transitions/archive/0.8.8.tar.gz
+	sha256sums = 403159cc7e561cd7e24657551b7bb01e737865a6e6c868df37206f416e6317e2
+
+pkgname = python2-transitions
+
