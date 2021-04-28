@@ -199,6 +199,32 @@ function personal_compare_versions {
     compare_versions $1 "personal"
 }
 
+function try_download {
+    pkgnames=$1
+    res=$2
+    depend=$3
+
+    for pkgname in $pkgnames; do
+        if [ -n "$GET_VERSION" ]; then
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
+        fi
+
+        if [ $res -eq 255 ] || [ $res -eq 0 ]; then
+            if $depend; then
+                sudo pacman -U --noconfirm $pkgname*.pkg.tar.$COMPRESSION
+            fi
+
+            cp $pkgname*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
+            cp $pkgname*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
+        else
+            return 1
+        fi
+    done
+
+    return 0
+}
+
 # IFS=$'\n' read -d'\n' -ra PACKAGES < $PACKAGE_LIST
 
 sudo pacman -Syu --noconfirm
@@ -260,39 +286,26 @@ while read -u10 package_name; do
         cd "personal"
     fi
 
+    cd "${splitted[0]}"
+    if [ try_download ${pkgnames[@]} $res $depend ]; then
+        continue
+    fi
+
+    if [ ${#MAKE_DEPENDS[@]} -ne 0 ]; then
+        echo "Installing Make Dependencies"
+        install_packages ${MAKE_DEPENDS[@]}
+    fi
+
+    if [ ${#DEPENDS[@]} -ne 0 ]; then
+        echo "Installing Dependencies"
+        install_packages ${DEPENDS[@]}
+    fi
+
+    CUR_DIR="$(pwd)"
+
+    call_makepkg
+
     for pkgname in $pkgnames; do
-        cd "$pkgname"
-
-        if [ -n "$GET_VERSION" ]; then
-            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
-            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
-        fi
-
-        if [ $res -eq 255 ] || [ $res -eq 0 ]; then
-            if $depend; then
-                sudo pacman -U --noconfirm $pkgname*.pkg.tar.$COMPRESSION
-            fi
-
-            cp $pkgname*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
-            cp $pkgname*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
-            
-            continue
-        fi
-
-        if [ ${#MAKE_DEPENDS[@]} -ne 0 ]; then
-            echo "Installing Make Dependencies"
-            install_packages ${MAKE_DEPENDS[@]}
-        fi
-
-        if [ ${#DEPENDS[@]} -ne 0 ]; then
-            echo "Installing Dependencies"
-            install_packages ${DEPENDS[@]}
-        fi
-
-        CUR_DIR="$(pwd)"
-
-        call_makepkg
-
         for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do
             sudo pacman -U --noconfirm "$f" && \
             cp "$f" "$BUILD_DIR/packages/" && \
