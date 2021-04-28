@@ -104,7 +104,7 @@ function download_file {
     #set +x
 
     for file in $@; do
-        wget "$REPO_URL/$ARCH/$file" --read-timeout=5 --tries=5 -O "$file" || rm "$file"
+        wget "$REPO_URL/$ARCH/$file" --read-timeout=5 --tries=5 -O "$file" || (rm "$file" && return 1)
     done
 
     #[ $DEBUG ] && set -x
