@@ -199,6 +199,34 @@ function personal_compare_versions {
     compare_versions $1 "personal"
 }
 
+function try_download {
+    args=(${@})
+
+    res=$1
+    depend=$2
+    pkgnames=(${args[@]:2})
+
+    for pkgname in $pkgnames; do
+        if [ -n "$GET_VERSION" ]; then
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
+        fi
+
+        if [ $res -eq 255 ] || [ $res -eq 0 ]; then
+            if $depend; then
+                sudo pacman -U --noconfirm $pkgname*.pkg.tar.$COMPRESSION
+            fi
+
+            cp $pkgname*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
+            cp $pkgname*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
+        else
+            return 1
+        fi
+    done
+
+    return 0
+}
+
 # IFS=$'\n' read -d'\n' -ra PACKAGES < $PACKAGE_LIST
 
 sudo pacman -Syu --noconfirm
@@ -235,10 +263,12 @@ while read -u10 package_name; do
     IFS=' ' read -ra splitted <<< "$package_name"
 
     depend=false
+    pkgnames=(${splitted[1]})
 
     for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
+            pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' ')) ;;
             *) ;;
         esac
     done
@@ -259,20 +289,7 @@ while read -u10 package_name; do
     fi
 
     cd "${splitted[1]}"
-
-    if [ -n "$GET_VERSION" ]; then
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
-        download_file "${splitted[1]}-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
-    fi
-
-    if [ $res -eq 255 ] || [ $res -eq 0 ]; then
-        if $depend; then
-            sudo pacman -U --noconfirm ${splitted[1]}*.pkg.tar.$COMPRESSION
-        fi
-
-        cp ${splitted[1]}*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
-        cp ${splitted[1]}*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/"
-
+    if try_download $res $depend ${pkgnames[@]}; then
         continue
     fi
 
@@ -290,10 +307,12 @@ while read -u10 package_name; do
 
     call_makepkg
 
-    for f in $CUR_DIR/${splitted[1]}*.pkg.tar.$COMPRESSION; do
-        sudo pacman -U --noconfirm "$f" && \
-        cp "$f" "$BUILD_DIR/packages/" && \
-        cp "$f.sig" "$BUILD_DIR/packages/"
+    for pkgname in $pkgnames; do
+        for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do
+            sudo pacman -U --noconfirm "$f" && \
+            cp "$f" "$BUILD_DIR/packages/" && \
+            cp "$f.sig" "$BUILD_DIR/packages/"
+        done
     done
 
     cd ../..

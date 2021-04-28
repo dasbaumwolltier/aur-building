@@ -29,6 +29,8 @@ aur epstool
 
 aur git-credential-kwallet-git
 
+aur git-credential-manager-core-bin
+
 aur git-interactive-rebase-tool
 
 aur python-sentry_sdk depend
@@ -125,7 +127,9 @@ aur python-dissononce-git depend
 aur python-consonance-git depend
 aur python-yowsup depend
 
-aur python2-e4u depend
+aur python2-beautifulsoup3 depend
+aur python-e4u depend pkgnames=python-e4u,python2-e4u
+
 aur python2-protobuf depend
 personal python2-transwhat-git
 
