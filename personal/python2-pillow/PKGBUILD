@@ -3,7 +3,7 @@
 
 pkgname=python2-pillow
 pkgver=6.2.2
-pkgrel=2
+pkgrel=3
 _appname=Pillow
 _py3basever=2.7
 pkgdesc="Python Imaging Library (PIL) fork."

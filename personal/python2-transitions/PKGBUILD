@@ -2,7 +2,7 @@
 
 pkgname=python2-transitions
 pkgver=0.8.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight, object-oriented finite state machine implementation in Python"
 url="http://github.com/tyarkoni/transitions"
 arch=(any)
