@@ -204,7 +204,7 @@ function try_download {
 
     res=$1
     depend=$2
-    pkgnames=(${args[@]:3})
+    pkgnames=(${args[@]:2})
 
     for pkgname in $pkgnames; do
         if [ -n "$GET_VERSION" ]; then
