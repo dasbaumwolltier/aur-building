@@ -200,7 +200,7 @@ function personal_compare_versions {
 }
 
 function try_download {
-    args=($@)
+    args=(${@})
 
     res=$1
     depend=$2
