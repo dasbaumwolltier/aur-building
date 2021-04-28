@@ -309,7 +309,7 @@ while read -u10 package_name; do
 
     call_makepkg
 
-    for pkgname in "${pkgnames[@]}; do
+    for pkgname in "${pkgnames[@]}"; do
         for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do
             sudo pacman -U --noconfirm "$f" && \
             cp "$f" "$BUILD_DIR/packages/" && \
