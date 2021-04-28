@@ -287,7 +287,7 @@ while read -u10 package_name; do
     fi
 
     cd "${splitted[0]}"
-    if [ try_download ${pkgnames[@]} $res $depend ]; then
+    if try_download ${pkgnames[@]} $res $depend; then
         continue
     fi
 
