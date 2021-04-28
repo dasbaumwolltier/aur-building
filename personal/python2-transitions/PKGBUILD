@@ -13,11 +13,11 @@ source=("https://github.com/tyarkoni/transitions/archive/${pkgver}.tar.gz")
 sha256sums=('403159cc7e561cd7e24657551b7bb01e737865a6e6c868df37206f416e6317e2')
 
 prepare() {
-  cd "${srcdir}"/transitions-$pkgver
+  cd transitions-$pkgver
 }
 
 build() {
-  cd "${srcdir}"/transitions-$pkgver
+  cd transitions-$pkgver
   python2 setup.py build
 }
 

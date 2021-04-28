@@ -25,12 +25,12 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/$_appname-$pkgver"
+  cd "$_appname-$pkgver"
   python2 setup.py build
 }
 
 check() {
-  cd "$srcdir/$_appname-$pkgver"
+  cd "$_appname-$pkgver"
 
   export PYTHONPATH="$PWD/build/lib.linux-$CARCH-${_py3basever%m}"
   python2 selftest.py
@@ -38,7 +38,7 @@ check() {
 }
 
 package() {
-  cd "$srcdir/$_appname-$pkgver"
+  cd "$_appname-$pkgver"
   python2 setup.py install --root="$pkgdir/" --optimize=1
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
