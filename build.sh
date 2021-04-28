@@ -208,8 +208,9 @@ function try_download {
 
     for pkgname in "${pkgnames[@]}"; do
         if [ -n "$GET_VERSION" ]; then
-            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION" || return 1
-            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig" || return 1
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION" && \
+            download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig" || \
+            return 1
         fi
 
         if [ $res -eq 255 ] || [ $res -eq 0 ]; then
