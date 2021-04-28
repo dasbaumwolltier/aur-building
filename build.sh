@@ -200,9 +200,11 @@ function personal_compare_versions {
 }
 
 function try_download {
-    pkgnames=$1
-    res=$2
-    depend=$3
+    args=("$@")
+
+    res=$1
+    depend=$2
+    pkgnames=(${args[@]:3})
 
     for pkgname in $pkgnames; do
         if [ -n "$GET_VERSION" ]; then
@@ -287,7 +289,7 @@ while read -u10 package_name; do
     fi
 
     cd "${splitted[1]}"
-    if try_download ${pkgnames[@]} $res $depend; then
+    if try_download $res $depend ${pkgnames[@]}; then
         continue
     fi
 
