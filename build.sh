@@ -206,7 +206,7 @@ function try_download {
     depend=$2
     pkgnames=(${args[@]:2})
 
-    for pkgname in $pkgnames; do
+    for pkgname in "${pkgnames[@]}"; do
         if [ -n "$GET_VERSION" ]; then
             download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION"
             download_file "$pkgname-$GET_VERSION-$GET_ARCH.pkg.tar.$COMPRESSION.sig"
