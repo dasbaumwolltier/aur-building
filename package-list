@@ -155,7 +155,7 @@ aur python-cryptg depend
 aur signald-git depend
 personal mautrix-signal-git
 
-aur mautrix-whatsapp
+personal mautrix-whatsapp-git
 
 aur python-aenum depend
 aur python-hbmqtt-tulir-git depend
