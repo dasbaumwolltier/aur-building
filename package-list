@@ -27,6 +27,8 @@ aur duplicati-latest
 
 aur epstool
 
+aur fluffychat
+
 aur git-credential-kwallet-git
 
 aur git-credential-manager-core-bin
@@ -118,27 +120,27 @@ personal zsh-meta-package
 aur bloomrpc
 
 # XMPP
-aur gconf depend
-aur libcommuni depend
-aur spectrum2 depend
+#aur gconf depend
+#aur libcommuni depend
+#aur spectrum2 depend
 
-aur python2-protobuf depend
+#aur python2-protobuf depend
 
-personal python2-transitions depend
-personal python2-dissononce-git depend
+#personal python2-transitions depend
+#personal python2-dissononce-git depend
 
-aur python2-axolotl-curve25519-git depend
-personal python2-consonance-git depend
+#aur python2-axolotl-curve25519-git depend
+#personal python2-consonance-git depend
 
-aur python2-axolotl-git depend
-personal python2-pillow depend
-aur python2-argparse depend
-personal python2-yowsup depend
+#aur python2-axolotl-git depend
+#personal python2-pillow depend
+#aur python2-argparse depend
+#personal python2-yowsup depend
 
-aur python2-beautifulsoup3 depend
-aur python-e4u depend pkgnames=python-e4u,python2-e4u
+#aur python2-beautifulsoup3 depend
+#aur python-e4u depend pkgnames=python-e4u,python2-e4u
 
-personal python2-transwhat-git
+#personal python2-transwhat-git
 
 # Mautrix
 
