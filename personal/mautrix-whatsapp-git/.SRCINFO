@@ -1,0 +1,25 @@
+pkgbase = mautrix-whatsapp-git
+	pkgdesc = A Matrix-WhatsApp puppeting bridge
+	pkgver = v0.1.6.r16.gdbdd325
+	pkgrel = 1
+	arch = any
+	license = AGPL
+	makedepends = go
+	makedepends = git
+	makedepends = libolm
+	depends = libolm
+	optdepends = ffmpeg: If you want to send gifs from Matrix
+	backup = etc/synapse/mautrix-whatsapp/mautrix-whatsapp.yaml
+	source = git+https://github.com/tulir/mautrix-whatsapp
+	source = sysusers-mautrix-whatsapp.conf
+	source = mautrix-whatsapp.tmpfiles
+	source = mautrix-whatsapp.service
+	source = log-path.diff
+	sha256sums = SKIP
+	sha256sums = 4b7c57d474305138504f3cc651efb33b8861952dc2a8340148531cdac1eae3d9
+	sha256sums = b32ef39bf224d4143891d7a81421c85ed0cf51f7a619877076366370dc274c68
+	sha256sums = 4f2fa47b89e6f24fba5d74c6cd48146f5da321a6786a192b2bb4756aa9845eaf
+	sha256sums = e27eea84a3df3380e26cfa485d383b19bb8b7cc8e0fd273e79df501b504160e4
+
+pkgname = mautrix-whatsapp-git
+
