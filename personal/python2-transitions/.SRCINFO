@@ -1,7 +1,7 @@
 pkgbase = python2-transitions
 	pkgdesc = A lightweight, object-oriented finite state machine implementation in Python
 	pkgver = 0.8.8
-	pkgrel = 1
+	pkgrel = 2
 	url = http://github.com/tyarkoni/transitions
 	arch = any
 	license = MIT
