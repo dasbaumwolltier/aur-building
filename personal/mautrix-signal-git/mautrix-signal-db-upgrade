@@ -13,4 +13,4 @@ fi
 if [[ ! -e /var/lib/mautrix-signal/alembic.ini ]]; then
   ln -s /usr/share/mautrix-signal/alembic.ini ./
 fi
-sudo -u mautrix-signal alembic -x config=/etc/synapse/mautrix-signal/config.yaml upgrade head
+sudo -u signald alembic -x config=/etc/synapse/mautrix-signal/config.yaml upgrade head

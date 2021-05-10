@@ -5,8 +5,8 @@ Description=Signal Matrix Puppet
 
 [Service]
 Type=simple
-User=mautrix-signal
-Group=mautrix-signal
+User=signald
+Group=signald
 WorkingDirectory=/var/lib/mautrix-signal/
 ExecStart=/usr/bin/mautrix-signal -c /etc/synapse/mautrix-signal/config.yaml \
           -r /etc/synapse/mautrix-signal/registration.yaml

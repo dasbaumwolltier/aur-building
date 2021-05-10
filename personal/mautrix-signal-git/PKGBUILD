@@ -23,10 +23,10 @@ source=("${_pkgbase}::git+https://github.com/tulir/${_pkgbase}"
 sha256sums=('SKIP'
             'f1216c42b151e7598384bb42843fb8544ba81bc87b7fcfc58d55479099eedcc9'
             '797083657b11728c7e711182f6d161871fc2fcae02ee5e651d7082a5c34625bd'
-            '53ba8d4fcadd54d96bc2a69a8fae5e3271c6eaed4cb2f6889ba5a477dc48b4bb'
+            '70c8c19728a22919233f6d31080bddf9507d0f25a17d17f56f3d6854647625fb'
             '0b0abf5194d28fc00642fb46a478470d2f6c1f73c0d5d9b2ea8cc383e45e15b9'
-            '585dc3be76d216cbeb55c45ed7e396a4c1e678e318b48fb472fa6d3202ce4532'
-            '992d454e77672e819b8f2319b718ccc06839128be711179c71baba61515678d6')
+            '69ca6c567273282a7694d831c8a39678900792fcc27806d81de20903eaf16c0d'
+            'cdfc114983ed330037d6b3ddfa3d45c51cdfa37f27675fb2caacfe970ef656a3')
 
 pkgver() {
   cd "$srcdir/${_pkgbase}"
@@ -51,6 +51,6 @@ package() {
   install -Dm644 "$srcdir"/README -t "$pkgdir"/etc/synapse/mautrix-signal/
   install -Dm755 "$srcdir"/mautrix-signal-db-upgrade -t "$pkgdir"/usr/bin/
   install -Dm644 ${_pkgbase}.service -t  "${pkgdir}"/usr/lib/systemd/system/
-  install -Dm644 "$srcdir"/sysusers-mautrix-signal.conf "$pkgdir"/usr/lib/sysusers.d/mautrix-signal.conf
+  # install -Dm644 "$srcdir"/sysusers-mautrix-signal.conf "$pkgdir"/usr/lib/sysusers.d/mautrix-signal.conf
   install -Dm644 "$srcdir"/tmpfiles-mautrix-signal.conf "$pkgdir"/usr/lib/tmpfiles.d/mautrix-signal.conf
 }
