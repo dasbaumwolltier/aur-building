@@ -1,7 +1,7 @@
 pkgbase = mautrix-signal-git
 	pkgdesc = mautrix-signal puppeting/relaybot bridge
 	pkgver = r96.3852c13
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/tulir/mautrix-signal
 	arch = any
 	license = AGPLv3
