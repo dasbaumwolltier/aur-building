@@ -17,5 +17,3 @@ depends=(
     zsh-z-git 
     k
 )
-
-
