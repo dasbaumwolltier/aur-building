@@ -2,8 +2,8 @@
 
 _pkgbase=mautrix-signal
 pkgname=${_pkgbase}-git
-pkgver=r96.3852c13
-pkgrel=4
+pkgver=r144.d27a7ee
+pkgrel=2
 pkgdesc='mautrix-signal puppeting/relaybot bridge'
 arch=('any')
 license=(AGPLv3)

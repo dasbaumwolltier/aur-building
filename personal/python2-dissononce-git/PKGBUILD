@@ -1,6 +1,6 @@
 pkgname='python2-dissononce-git'
-pkgver=0.34.3.r1.g4fad01e
-pkgrel=2
+pkgver=0.34.3.r4.g1a5b468
+pkgrel=1
 pkgdesc="python implementation for Noise Protocol Framework"
 url="https://github.com/tgalal/dissononce"
 arch=('any')

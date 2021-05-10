@@ -1,7 +1,7 @@
 pkgbase = mautrix-telegram-git
 	pkgdesc = A Matrix-Hangouts puppeting bridge with multi-user support
-	pkgver = r1356.4767fec
-	pkgrel = 2
+	pkgver = r1384.6accb53
+	pkgrel = 1
 	url = https://github.com/tulir/mautrix-telegram
 	arch = any
 	license = AGPLv3

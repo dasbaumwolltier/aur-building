@@ -2,8 +2,8 @@
 
 _pkgbase=mautrix-hangouts
 pkgname=${_pkgbase}-git
-pkgver=r151.2a0ae63
-pkgrel=3
+pkgver=r156.05592f8
+pkgrel=1
 pkgdesc="A Matrix-Hangouts puppeting bridge with multi-user support"
 arch=(any)
 conflicts=(mautrix-hangouts)

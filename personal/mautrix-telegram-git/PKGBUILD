@@ -2,8 +2,8 @@
 
 _pkgbase=mautrix-telegram
 pkgname=${_pkgbase}-git
-pkgver=r1356.4767fec
-pkgrel=2
+pkgver=r1384.6accb53
+pkgrel=1
 pkgdesc="A Matrix-Hangouts puppeting bridge with multi-user support"
 arch=(any)
 conflicts=(mautrix-hangouts)
