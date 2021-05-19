@@ -265,11 +265,13 @@ while read -u10 package_name; do
     IFS=' ' read -ra splitted <<< "$package_name"
 
     depend=false
+    noinstall=false
     pkgnames=(${splitted[1]})
 
     for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
+            noinstall) noinstall=true ;;
             pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' ')) ;;
             *) ;;
         esac
@@ -311,9 +313,16 @@ while read -u10 package_name; do
 
     for pkgname in "${pkgnames[@]}"; do
         for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do
-            sudo pacman -U --noconfirm "$f" && \
-            cp "$f" "$BUILD_DIR/packages/" && \
-            cp "$f.sig" "$BUILD_DIR/packages/"
+            res=0
+            if ! $noinstall; then
+                sudo pacman -U --noconfirm "$f"
+                res=$?
+            fi
+
+            if $noinstall || [ $res -eq 0 ]; then
+                cp "$f" "$BUILD_DIR/packages/" &&\
+                cp "$f.sig" "$BUILD_DIR/packages/"
+            fi
         done
     done
 
