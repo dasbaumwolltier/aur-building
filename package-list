@@ -108,6 +108,8 @@ aur perl-authen-pam depend
 aur perl-encode-detect depend
 aur webmin
 
+aur websockify-git
+
 aur wiki-js
 
 aur python2-gobject2 depend
