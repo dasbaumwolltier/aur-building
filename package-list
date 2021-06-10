@@ -106,11 +106,15 @@ aur searx
 
 aur synapse-compress-state
 
+aur synergy1-bin
+
 aur teams
 
 aur perl-authen-pam depend
 aur perl-encode-detect depend
 aur webmin
+
+aur websockify-git
 
 aur wiki-js
 
