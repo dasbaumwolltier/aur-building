@@ -68,7 +68,7 @@ aur nexus-oss
 aur mtxclient depend
 aur lmdbxx depend
 aur tweeny depend
-aur nheko
+personal nheko
 
 aur notion-app
 
