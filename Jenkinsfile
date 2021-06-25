@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {
-                sh 'docker -t aur-build-image:v1 build . | tee docker-build.log'
+                sh 'docker build -t aur-build-image:v1 . | tee docker-build.log'
             }
         }
 
@@ -36,13 +36,13 @@ pipeline {
                 }
 
                 withCredentials([usernamePassword(credentialsId: 'archlinux-nexus-oss', passwordVariable: 'REPO_PASS', usernameVariable: 'REPO_USER')]) {
-                    sh 'docker run -e REPO_URL="$REPO_URL" -e REPO_USER="$REPO_USER" -e REPO_PASS="$REPO_PASS" -e SIGN_EMAIL="746BC93D5F08C5A4369F4DDB10BF99E6998249B6"' +
-                        '-v "$(realpath sign.key):/build/sign.key"' +
-                        '-v "$(realpath sign.crt):/build/sign.crt"' +
-                        '-v "$(realpath dasbaumwolltier.db.tar.zst):/build/dasbaumwolltier.db.tar.zst"' +
-                        '-v "$(realpath dasbaumwolltier.db.tar.zst.sig):/build/dasbaumwolltier.db.tar.zst.sig"' +
-                        '-v "$(realpath dasbaumwolltier.files.tar.zst):/build/dasbaumwolltier.files.tar.zst"' +
-                        '-v "$(realpath dasbaumwolltier.files.tar.zst.sig):/build/dasbaumwolltier.files.tar.zst.sig"' +
+                    sh 'docker run --name "${JOB_BASE_NAME}" -e REPO_URL="$REPO_URL" -e REPO_USER="$REPO_USER" -e REPO_PASS="$REPO_PASS" -e SIGN_EMAIL="746BC93D5F08C5A4369F4DDB10BF99E6998249B6" ' +
+                        '-v "$(realpath sign.key):/build/sign.key" ' +
+                        '-v "$(realpath sign.crt):/build/sign.crt" ' +
+                        '-v "$(realpath dasbaumwolltier.db.tar.zst):/build/dasbaumwolltier.db.tar.zst" ' +
+                        '-v "$(realpath dasbaumwolltier.db.tar.zst.sig):/build/dasbaumwolltier.db.tar.zst.sig" ' +
+                        '-v "$(realpath dasbaumwolltier.files.tar.zst):/build/dasbaumwolltier.files.tar.zst" ' +
+                        '-v "$(realpath dasbaumwolltier.files.tar.zst.sig):/build/dasbaumwolltier.files.tar.zst.sig" ' +
                         'aur-build-image:v1'
                 }
             }
@@ -52,7 +52,7 @@ pipeline {
             steps {
                 sh 'rm sign.key'
                 sh 'set -x'
-                sh 'docker rm ${JOB_BASE_NAME}'
+                sh 'docker rm "${JOB_BASE_NAME}"'
             }
         }
     }
