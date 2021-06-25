@@ -81,6 +81,26 @@ aur pacdep
 
 aur pacman-git noinstall
 
+# Paperless NG
+aur python-humanfriendly depend
+aur python-coloredlogs depend
+aur ocrmypdf depend
+
+aur python-daphne depend
+aur python-django-channels depend
+aur python-django-channels-redis depend
+
+aur python-inotify-simple depend
+aur python-inotifyrecursive depend
+
+aur python-concurrent-log-handler depend
+aur python-django-cors-headers depend
+aur python-imap-tools depend
+aur python-portalocker depend
+aur python-tika depend
+aur paperless-ng
+# End Paperless NG
+
 aur papyrus
 
 aur parsoid
