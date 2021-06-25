@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                cleanWorkspace()
+                cleanWs()
                 sh 'set -x'
                 sh 'wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst && ' + 
                     'wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst.sig && ' +
