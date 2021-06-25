@@ -36,7 +36,7 @@ pipeline {
                 }
 
                 withCredentials([usernamePassword(credentialsId: 'archlinux-nexus-oss', passwordVariable: 'REPO_PASS', usernameVariable: 'REPO_USER')]) {
-                    'docker run -e REPO_URL="$REPO_URL" -e REPO_USER="$REPO_USER" -e REPO_PASS="$REPO_PASS" -e SIGN_EMAIL="746BC93D5F08C5A4369F4DDB10BF99E6998249B6"' +
+                    sh 'docker run -e REPO_URL="$REPO_URL" -e REPO_USER="$REPO_USER" -e REPO_PASS="$REPO_PASS" -e SIGN_EMAIL="746BC93D5F08C5A4369F4DDB10BF99E6998249B6"' +
                         '-v "$(realpath sign.key):/build/sign.key"' +
                         '-v "$(realpath sign.crt):/build/sign.crt"' +
                         '-v "$(realpath dasbaumwolltier.db.tar.zst):/build/dasbaumwolltier.db.tar.zst"' +
