@@ -49,9 +49,11 @@ pipeline {
         }
 
         stage('Clean up') {
-            sh 'rm sign.key'
-            sh 'set -x'
-            sh 'docker rm ${JOB_BASE_NAME}'
+            steps {
+                sh 'rm sign.key'
+                sh 'set -x'
+                sh 'docker rm ${JOB_BASE_NAME}'
+            }
         }
     }
 }
