@@ -91,10 +91,12 @@ aur python-django-channels-redis depend
 aur python-inotify-simple depend
 aur python-inotifyrecursive depend
 
-aur python-concurrent-log-handler depend
-aur python-django-cors-headers depend
-aur python-imap-tools depend
 aur python-portalocker depend
+aur python-concurrent-log-handler depend
+
+aur python-django-cors-headers depend
+aur python-pathvalidate depend
+aur python-imap-tools depend
 aur python-tika depend
 aur paperless-ng
 # End Paperless NG
