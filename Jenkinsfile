@@ -8,7 +8,6 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                cleanWs()
                 sh 'set -x'
                 sh 'wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst && ' + 
                     'wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst.sig && ' +
@@ -53,6 +52,7 @@ pipeline {
                 sh 'rm sign.key'
                 sh 'set -x'
                 sh 'docker rm "${JOB_BASE_NAME}"'
+                cleanWs()
             }
         }
     }
