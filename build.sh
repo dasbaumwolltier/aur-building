@@ -266,12 +266,14 @@ while read -u10 package_name; do
 
     depend=false
     noinstall=false
+    makepkg_options=""
     pkgnames=(${splitted[1]})
 
     for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
             noinstall) noinstall=true ;;
+            nocheck) makepkg_options="$makepkg_options --nocheck" ;;
             pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' ')) ;;
             *) ;;
         esac
@@ -309,7 +311,7 @@ while read -u10 package_name; do
 
     CUR_DIR="$(pwd)"
 
-    call_makepkg
+    call_makepkg "$makepkg_options"
 
     for pkgname in "${pkgnames[@]}"; do
         for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do

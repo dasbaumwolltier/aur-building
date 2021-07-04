@@ -101,6 +101,30 @@ aur python-tika depend
 aur paperless-ng
 # End Paperless NG
 
+# Papermerge
+aur python-persisting-theory depend
+aur python-django-dynamic-preferences depend
+
+aur python-django-taggit depend
+aur python-django-modelcluster depend
+
+aur python-django-js-asset-git depend
+aur python-django-mptt depend
+
+aur python-django-tag-parser depend
+aur python-django-polymorphic depend
+aur python-django-polymorphic-tree depend
+
+aur python-backports.ssl depend
+aur python-imapclient depend
+
+aur python-django-rest-knox depend
+aur python-django-celery-results depend
+aur python-mgclipboard depend
+aur python-mglib depend
+personal papermerge nocheck
+# End Papermerge
+
 aur papyrus
 
 aur parsoid
