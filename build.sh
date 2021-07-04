@@ -268,12 +268,14 @@ while read -u10 package_name; do
     noinstall=false
     makepkg_options=""
     pkgnames=(${splitted[1]})
+    dirname="${splitted[1]}"
 
     for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
             noinstall) noinstall=true ;;
             nocheck) makepkg_options="$makepkg_options --nocheck" ;;
+            dirname=*) dirname="$(echo $opt | awk -F= '{print $2}')" ;;
             pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' ')) ;;
             *) ;;
         esac
@@ -284,17 +286,17 @@ while read -u10 package_name; do
     cd "$BUILD_DIR"
     "${splitted[0]}_download_pkgbuild" ${splitted[1]}
 
-    "${splitted[0]}_get_make_depends" ${splitted[1]}
-    "${splitted[0]}_get_depends" ${splitted[1]}
+    "${splitted[0]}_get_make_depends" $dirname
+    "${splitted[0]}_get_depends" $dirname
 
-    "${splitted[0]}_compare_versions" ${splitted[1]} $GET_VERSION
+    "${splitted[0]}_compare_versions" $dirname $GET_VERSION
     res=$?
 
     if [ "${splitted[0]}" == "personal" ]; then
         cd "personal"
     fi
 
-    cd "${splitted[1]}"
+    cd "$dirname"
     if try_download $res $depend ${pkgnames[@]}; then
         continue
     fi
