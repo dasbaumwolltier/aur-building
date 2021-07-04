@@ -23,6 +23,10 @@ aur dotdrop
 aur dict-freedict-deu-swe-bin
 aur dict-freedict-swe-deu-bin
 
+aur docspell-joex
+aur docspell-restserver
+aur docspell-tools
+
 aur duplicati-latest
 
 aur epstool
