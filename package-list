@@ -144,7 +144,9 @@ aur websockify-git
 aur wiki-js
 
 aur python2-gobject2 depend
+aur libglade depend
 aur pygtk depend
+
 aur zenmap
 
 # ZSH
