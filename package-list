@@ -51,7 +51,7 @@ aur insomnia
 
 aur jetbrains-toolbox
 
-aur liquidctl-git
+aur liquidctl-git nocheck
 
 aur kind
 
@@ -74,12 +74,12 @@ aur notion-app
 
 aur nodejs-nativefier
 
-aur octave-signal
+aur octave-signal nocheck
 
 aur pod2man depend
 aur pacdep
 
-aur pacman-git noinstall
+aur pacman-git noinstall nocheck
 
 # Paperless NG
 aur python-humanfriendly depend
@@ -88,6 +88,7 @@ aur ocrmypdf depend
 
 aur python-daphne depend
 aur python-django-channels depend
+aur python-aioredis1 depend
 aur python-django-channels-redis depend
 
 aur python-inotify-simple depend
@@ -100,7 +101,6 @@ aur python-django-cors-headers depend
 aur python-pathvalidate depend
 aur python-imap-tools depend
 aur python-tika depend
-aur python-aioredis1 depend
 aur paperless-ng
 # End Paperless NG
 
@@ -202,6 +202,7 @@ personal mautrix-signal-git
 personal mautrix-whatsapp-git
 
 aur python-aenum depend
+aur python-transitions depend
 aur python-hbmqtt-tulir-git depend
 aur python-fbchat-asyncio-git depend
 
@@ -220,7 +221,7 @@ aur python-imread depend
 aur python-tifffile depend
 
 aur python-pywavelets depend
-aur python-scikit-image depend
+aur python-scikit-image depend nocheck
 
 aur python-moviepy depend
 
