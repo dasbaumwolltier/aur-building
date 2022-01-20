@@ -26,6 +26,7 @@ steps:
     image: plugins/docker
     settings:
       repo: registry.guldner.eu/aur-build-image
+      registry: registry.guldner.eu
       tags: latest
       username:
         from_secret: registry_username
