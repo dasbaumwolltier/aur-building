@@ -40,6 +40,14 @@ case $key in
     ARCH="$2"
     shift; shift
     ;;
+    --cert)
+    CRTFILE="$2"
+    shift; shift
+    ;;
+    --key)
+    KEYFILE="$2"
+    shift; shift
+    ;;
     *)
     POSITIONAL+=("$1")
     shift

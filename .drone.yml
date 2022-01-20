@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://json.schemastore.org/drone.json
+
+kind: pipeline
+type: kubernetes
+name: build-image
+
+steps:
+  - name: download
+    image: alpine:3.15
+    environment:
+      GPG_KEY:
+        from_secret: gpg_key
+    commands:
+    - apk add wget
+    - | 
+      wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst && 
+      wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst.sig &&
+      wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.files.tar.zst &&
+      wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.files.tar.zst.sig ||
+      repo-add dasbaumwolltier.db.tar.zst
+    - curl "https://keys.openpgp.org/vks/v1/by-fingerprint/746BC93D5F08C5A4369F4DDB10BF99E6998249B6" > sign.crt
+    - echo "$GPG_KEY" > sign.key
+    - ls -la
+
+  - name: docker
+    image: plugins/docker
+    settings:
+      repo: registry.guldner.eu/aur-build-image
+      tags: latest
+      username:
+        from_secret: registry_username
+      password:
+        from_secret: registry_password
+
+  - name: build
+    image: registry.guldner.eu/aur-build-image
+    commands:
+    - /bin/bash /build/build.sh --db-name /drone/src/dasbaumwolltier --cert /drone/src/sign.crt --key /dron/src/sign.key
