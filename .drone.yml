@@ -37,6 +37,9 @@ steps:
     image: registry.guldner.eu/aur-build-image
     pull: always
     commands:
+    - ls -la /
+    - ls -la /drone
+    - ls -la /drone/src
     - /bin/bash /build/build.sh --db-name /drone/src/dasbaumwolltier --cert /drone/src/sign.crt --key /dron/src/sign.key
 
 image_pull_secrets:
