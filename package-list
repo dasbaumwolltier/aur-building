@@ -59,6 +59,8 @@ aur koi-git
 
 aur matomo
 
+aur kubectl-minio
+
 aur mkpasswd
 
 aur mqtt-spy

@@ -34,8 +34,14 @@ steps:
         from_secret: registry_password
 
   - name: build
-    image: registry.guldner.eu/aur-build-image
+    image: registry.guldner.eu/aur-build-image:latest
     pull: always
+    environment:
+      REPO_URL: https://repo.guldner.eu/repository/archlinux
+      REPO_USER:
+        from_secret: repo_user
+      REPO_PASS:
+        from_secret: repo_pass
     commands:
     - ls -la /
     - ls -la /drone
