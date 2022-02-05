@@ -39,6 +39,7 @@ steps:
     pull: always
     environment:
       REPO_URL: https://repo.guldner.eu/repository/archlinux
+      SIGN_EMAIL: 746BC93D5F08C5A4369F4DDB10BF99E6998249B6
       REPO_USER:
         from_secret: repo_user
       REPO_PASS:
