@@ -58,19 +58,19 @@ done
 mkdir -p "$BUILD_DIR"
 mkdir -p "$BUILD_DIR/packages"
 
-cp "$PACMAN_DB_NAME".db.* "$BUILD_DIR/"
-cp "$PACMAN_DB_NAME".files.* "$BUILD_DIR/"
+cp $PACMAN_DB_NAME.db.* "$BUILD_DIR/"
+cp $PACMAN_DB_NAME.files.* "$BUILD_DIR/"
 
 cp -avR /build/personal "$BUILD_DIR/personal"
 
-PACMAN_DB_NAME="$BUILD_DIR/$(basename "$PACMAN_DB_NAME")"
+PACMAN_DB_NAME="$BUILD_DIR/$(basename $PACMAN_DB_NAME)"
 
-if [ ! -f "$PACKAGE_LIST" ]; then
+if [ ! -f $PACKAGE_LIST ]; then
     exit 1
 fi
 
 function install_packages {
-    for p in "$@"; do
+    for p in $@; do
         sudo pacman -S --noconfirm --needed $p
     done
 
@@ -78,7 +78,7 @@ function install_packages {
 }
 
 function call_makepkg {
-    makepkg --skippgpcheck --sign --key "$SIGN_EMAIL" "$@"
+    makepkg --skippgpcheck --sign --key "$SIGN_EMAIL" $@
     return $?
 }
 
@@ -86,7 +86,7 @@ function install_yay {
     install_packages go
 
     git clone https://aur.archlinux.org/yay.git "$BUILD_DIR/yay-used"
-    cd "$BUILD_DIR/yay-used" || return 1
+    cd "$BUILD_DIR/yay-used"
 
     makepkg
     sudo pacman -U --noconfirm yay-*.pkg.tar.*
@@ -96,7 +96,7 @@ function install_yay {
 }
 
 function aur_download_pkgbuild {
-    yay -G --noconfirm --nopgpfetch "$@"
+    yay -G --noconfirm --nopgpfetch $@
 }
 
 function personal_download_pkgbuild {
@@ -111,7 +111,7 @@ function get_version {
 function download_file {
     #set +x
 
-    for file in "$@"; do
+    for file in $@; do
         wget "$REPO_URL/$ARCH/$file" --read-timeout=5 --tries=5 -O "$file" || (rm "$file" && return 1)
     done
 
@@ -133,7 +133,7 @@ GET_ARCH=""
 PKGBUILD_VERSION=""
 
 function get_make_depends {
-    IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$1/PKGBUILD"; echo "${makedepends[@]}")"
+    IFS=' ' read -ra MAKE_DEPENDS <<< "$(. "$1/PKGBUILD"; echo ${makedepends[@]})"
 }
 
 function aur_get_make_depends {
@@ -146,7 +146,7 @@ function personal_get_make_depends {
 }
 
 function get_depends {
-    IFS=' ' read -ra DEPENDS <<< "$(. "$1/PKGBUILD"; echo "${depends[@]}")"
+    IFS=' ' read -ra DEPENDS <<< "$(. "$1/PKGBUILD"; echo ${depends[@]})"
 }
 
 function aur_get_depends {
@@ -209,11 +209,11 @@ function personal_compare_versions {
 }
 
 function try_download {
-    args=("${@}")
+    args=(${@})
 
     res=$1
     depend=$2
-    pkgnames=("${args[@]:2}")
+    pkgnames=(${args[@]:2})
 
     for pkgname in "${pkgnames[@]}"; do
         if [ -n "$GET_VERSION" ]; then
@@ -224,11 +224,11 @@ function try_download {
 
         if [ $res -eq 255 ] || [ $res -eq 0 ]; then
             if $depend; then
-                sudo pacman -U --noconfirm "$pkgname"*.pkg.tar."$COMPRESSION"
+                sudo pacman -U --noconfirm $pkgname*.pkg.tar.$COMPRESSION
             fi
 
-            cp "$pkgname"*.pkg.tar."$COMPRESSION" "$BUILD_DIR/packages/" && \
-            cp "$pkgname"*.pkg.tar."$COMPRESSION".sig "$BUILD_DIR/packages/" || \
+            cp $pkgname*.pkg.tar.$COMPRESSION "$BUILD_DIR/packages/" && \
+            cp $pkgname*.pkg.tar.$COMPRESSION.sig "$BUILD_DIR/packages/" || \
             return 1
         else
             return 1
@@ -257,10 +257,10 @@ cat "$PACKAGE_LIST"
 
 mkdir -p "$BUILD_DIR/database/sync"
 ls -la /build
-cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$BUILD_DIR/database/sync/$(basename "$PACMAN_DB_NAME").db"
-cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$(basename "$PACMAN_DB_NAME").sig"
+cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).db"
+cp "$PACMAN_DB_NAME.db.tar.$COMPRESSION.sig" "$BUILD_DIR/database/sync/$(basename $PACMAN_DB_NAME).sig"
 
-while read -ru10 package_name; do
+while read -u10 package_name; do
     if [ -z "$package_name" ]; then
         continue
     fi
@@ -269,23 +269,23 @@ while read -ru10 package_name; do
         \#*) continue ;;
     esac
 
-    echo "$package_name"
+    echo $package_name
 
     IFS=' ' read -ra splitted <<< "$package_name"
 
     depend=false
     noinstall=false
     makepkg_options=""
-    pkgnames=("${splitted[1]}")
+    pkgnames=(${splitted[1]})
     dirname="${splitted[1]}"
 
-    for opt in "${splitted[@]:2}"; do
+    for opt in ${splitted[@]:2}; do
         case "$opt" in
             depend) depend=true ;;
             noinstall) noinstall=true ;;
             nocheck) makepkg_options="$makepkg_options --nocheck" ;;
-            dirname=*) dirname="$(echo "$opt" | awk -F= '{print $2}')" ;;
-            pkgnames=*) pkgnames=("$(echo "$opt" | awk -F= '{print $2}' | tr ',' ' ')") ;;
+            dirname=*) dirname="$(echo $opt | awk -F= '{print $2}')" ;;
+            pkgnames=*) pkgnames=($(echo $opt | awk -F= '{print $2}' | tr ',' ' ')) ;;
             *) ;;
         esac
     done
@@ -293,12 +293,12 @@ while read -ru10 package_name; do
     get_version "${splitted[1]}"
 
     cd "$BUILD_DIR"
-    "${splitted[0]}_download_pkgbuild" "${splitted[1]}"
+    "${splitted[0]}_download_pkgbuild" ${splitted[1]}
 
-    "${splitted[0]}_get_make_depends" "$dirname"
-    "${splitted[0]}_get_depends" "$dirname"
+    "${splitted[0]}_get_make_depends" $dirname
+    "${splitted[0]}_get_depends" $dirname
 
-    "${splitted[0]}_compare_versions" "$dirname" "$GET_VERSION"
+    "${splitted[0]}_compare_versions" $dirname $GET_VERSION
     res=$?
 
     if [ "${splitted[0]}" == "personal" ]; then
@@ -306,18 +306,18 @@ while read -ru10 package_name; do
     fi
 
     cd "$dirname"
-    if try_download $res $depend "${pkgnames[@]}"; then
+    if try_download $res $depend ${pkgnames[@]}; then
         continue
     fi
 
     if [ ${#MAKE_DEPENDS[@]} -ne 0 ]; then
         echo "Installing Make Dependencies"
-        install_packages "${MAKE_DEPENDS[@]}"
+        install_packages ${MAKE_DEPENDS[@]}
     fi
 
     if [ ${#DEPENDS[@]} -ne 0 ]; then
         echo "Installing Dependencies"
-        install_packages "${DEPENDS[@]}"
+        install_packages ${DEPENDS[@]}
     fi
 
     CUR_DIR="$(pwd)"
@@ -325,7 +325,7 @@ while read -ru10 package_name; do
     call_makepkg "$makepkg_options"
 
     for pkgname in "${pkgnames[@]}"; do
-        for f in "$CUR_DIR"/"$pkgname"*.pkg.tar."$COMPRESSION"; do
+        for f in $CUR_DIR/$pkgname*.pkg.tar.$COMPRESSION; do
             res=0
             if ! $noinstall; then
                 sudo pacman -U --noconfirm "$f"
@@ -345,7 +345,7 @@ done 10< "$PACKAGE_LIST"
 cd "$BUILD_DIR/packages"
 ls -la
 
-for file in "$BUILD_DIR"/packages/*.pkg.tar.$COMPRESSION; do
+for file in $BUILD_DIR/packages/*.pkg.tar.$COMPRESSION; do
     repo-add --sign --prevent-downgrade --key "$SIGN_EMAIL" "$PACMAN_DB_NAME.db.tar.$COMPRESSION" "$file" \
         && upload_file "$file" && upload_file "$file.sig"
 done
