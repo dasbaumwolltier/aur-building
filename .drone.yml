@@ -6,12 +6,13 @@ name: build-image
 
 steps:
   - name: download
-    image: alpine:3.15
+    image: archlinux
     environment:
       GPG_KEY:
         from_secret: gpg_key
     commands:
-    - apk add wget curl
+    - pacman -Syu
+    - pacman -S sudo git go base-devel clang wget curl --noconfirm
     - | 
       wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst && 
       wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.db.tar.zst.sig &&
