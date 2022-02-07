@@ -119,9 +119,9 @@ function download_file {
 }
 
 function upload_file {
-    set +x
+    #set +x
     # curl --user "$REPO_USER:$REPO_PASS" --upload-file "$1" "$REPO_URL/$ARCH/$(basename $1)"
-    curl -XPUT --user "$REPO_USER:$REPO_PASS" --form "$(basename "$1")=@$1" "$REPO_URL/$ARCH/"
+    curl -XPUT -v --user "$REPO_USER:$REPO_PASS" --form "$(basename "$1")=@$1" "$REPO_URL/$ARCH/"
 
     [ $DEBUG ] && set -x
 }
