@@ -45,7 +45,7 @@ steps:
     commands:
     - echo "$${GPG_KEY}" > /drone/src/sign.key
     - ls -la /drone/src
-    - /bin/bash /build/build.sh --db-name /drone/src/dasbaumwolltier --cert /drone/src/sign.crt --key /dron/src/sign.key
+    - /bin/bash /build/build.sh --db-name /drone/src/dasbaumwolltier --cert /drone/src/sign.crt --key /drone/src/sign.key
 
 image_pull_secrets:
 - pull-secret
