@@ -7,9 +7,6 @@ name: build-image
 steps:
   - name: download
     image: archlinux
-    environment:
-      GPG_KEY:
-        from_secret: gpg_key
     commands:
     - pacman -Syu --noconfirm
     - pacman -S sudo git go base-devel clang wget curl --noconfirm
@@ -20,7 +17,6 @@ steps:
       wget https://repo.guldner.eu/repository/archlinux/x86_64/dasbaumwolltier.files.tar.zst.sig ||
       repo-add dasbaumwolltier.db.tar.zst
     - curl "https://keys.openpgp.org/vks/v1/by-fingerprint/746BC93D5F08C5A4369F4DDB10BF99E6998249B6" > sign.crt
-    - echo "$GPG_KEY" > sign.key
     - ls -la
 
   - name: docker
@@ -40,15 +36,18 @@ steps:
     environment:
       REPO_URL: https://repo.guldner.eu/repository/archlinux
       SIGN_EMAIL: 746BC93D5F08C5A4369F4DDB10BF99E6998249B6
+      GPG_KEY:
+        from_secret: gpg_key
       REPO_USER:
         from_secret: repo_user
       REPO_PASS:
         from_secret: repo_pass
     commands:
-    - ls -la /
-    - ls -la /drone
+    - echo "$${GPG_KEY}" > /drone/src/sign.key
     - ls -la /drone/src
-    - /bin/bash /build/build.sh --db-name /drone/src/dasbaumwolltier --cert /drone/src/sign.crt --key /dron/src/sign.key
+    - cd /build
+    - ls -la /build
+    - /bin/bash /build/build.sh --db-name /drone/src/dasbaumwolltier --cert /drone/src/sign.crt --key /drone/src/sign.key
 
 image_pull_secrets:
 - pull-secret

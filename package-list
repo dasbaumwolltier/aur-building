@@ -152,6 +152,18 @@ aur pygtk depend
 
 aur zenmap
 
+# NEOVIM
+aur neovim-lspconfig-git
+aur neovim-material-git
+aur neovim-plug-git
+aur neovim-web-devicons-git
+aur vim-colors-solarized-git
+aur vim-devicons
+aur vim-material-git
+aur vim-plug-git
+aur vim-startify-git
+aur vim8-solarized-git
+
 # ZSH
 aur oh-my-zsh-git depend
 aur zsh-abbr depend
