@@ -120,8 +120,9 @@ function download_file {
 
 function upload_file {
     set +x
-    # curl --user "$REPO_USER:$REPO_PASS" --upload-file "$1" "$REPO_URL/$ARCH/$(basename $1)"
-    curl -XPUT --user "$REPO_USER:$REPO_PASS" --form "$(basename "$1")=@$1" "$REPO_URL/$ARCH/"
+    curl -XPUT -H 'Content-Type: application/octet-stream' --basic --user "$REPO_USER:$REPO_PASS" --upload-file "$1" "$REPO_URL/$ARCH/$(basename $1)"
+    # curl -XPUT --user "$REPO_USER:$REPO_PASS" --form "$(basename "$1")=@$1" "$REPO_URL/$ARCH/"
+    # curl -T "$1" -XPUT -H 'Content-Type: application/octet-stream' --basic --user "$REPO_USER:$REPO_USER" "$REPO_URL/$ARCH/$1"
 
     [ $DEBUG ] && set -x
 }
