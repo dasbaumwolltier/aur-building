@@ -13,6 +13,8 @@ aur balena-etcher
 
 aur bitwarden-bin
 
+aur brave-bin
+
 aur chatty
 
 aur discord_arch_electron
@@ -30,6 +32,8 @@ aur duplicati-latest
 aur epstool
 
 aur fluffychat
+
+aur flutter
 
 aur git-credential-kwallet-git
 
@@ -50,6 +54,8 @@ aur nvm depend
 aur insomnia
 
 aur jetbrains-toolbox
+
+aur lens-bin
 
 aur liquidctl-git nocheck
 
